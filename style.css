@@ -1,0 +1,35 @@
+body{
+    background-image: url("../media/bgi.jpg");
+}
+
+h1{
+    font-family:"space-mission", sans-serif;
+    color:antiquewhite;
+    text-align: center;
+}
+
+.buttons{
+    text-align: center;
+}
+.indbuttons{
+    background-color: rgb(180, 180, 229);
+}
+
+a:link{
+    text-decoration: none;
+    color:antiquewhite
+}
+a:visited{
+    text-decoration: none;
+    color:antiquewhite
+}
+
+a:hover{
+    text-decoration: none;
+    color: antiquewhite;
+}
+
+a:active{
+    text-decoration: none;
+    color: antiquewhite;
+}
