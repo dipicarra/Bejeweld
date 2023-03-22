@@ -1,0 +1,41 @@
+body{
+    background-image: url("../media/bgi.jpg");
+}
+
+h1{
+    font-family:'Times New Roman', Times, serif;
+    color:antiquewhite;
+    text-align: center;
+}
+
+.buttons{
+    text-align: center;
+}
+.indbuttons{
+    background-color:#887bb0d0;
+}
+
+a:link{
+    text-decoration: none;
+    font-weight: bold;
+    color:#85d2d0;
+}
+a:visited{
+    text-decoration: none;
+    font-weight: bold;
+    color:#85d2d0;
+}
+
+a:hover{
+    text-decoration: none;
+    color: antiquewhite;
+}
+
+a:active{
+    text-decoration: none;
+    color: antiquewhite;
+}
+
+.audio{
+    text-align: center;
+}
