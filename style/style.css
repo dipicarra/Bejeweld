@@ -9,6 +9,12 @@ h1{
     text-align: center;
 }
 
+.text {
+    font-family:'Times New Roman', Times, serif;
+    background-color: black;
+    color:white;
+}
+
 .buttons{
     text-align: center;
 }
