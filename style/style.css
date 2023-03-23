@@ -9,18 +9,9 @@ h1{
     text-align: center;
 }
 
-.subtitulo{
-    font-family:'Times New Roman', Times, serif;
-    color:antiquewhite;
+.buttons{
     text-align: center;
 }
-
-.text {
-    font-family:'Times New Roman', Times, serif;
-    background-color: black;
-    color:white;
-}
-
 .indbuttons{
     background-color:#887bb0d0;
 }
