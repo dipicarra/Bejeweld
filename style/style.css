@@ -1,5 +1,6 @@
 body{
     background-image: url("../media/bgi.jpg");
+    background-size: cover;
 }
 
 h1{
