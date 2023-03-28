@@ -5,3 +5,19 @@
 footer{
     text-align: left;
 }
+
+.indbuttons{
+    display: block;
+    margin: auto;
+    margin-top: 20px;
+}
+
+.navButtonregister{
+    margin-right: 50px;
+}
+
+.buttonSingle{
+    display: block;
+    margin: auto;
+    margin-top: 80px;
+}

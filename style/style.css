@@ -9,11 +9,29 @@ h1{
     text-align: center;
 }
 
+.rulesh2{
+    font-family:'Times New Roman', Times, serif;
+    color:antiquewhite;
+    text-align: center;
+    margin-top: -5px;
+}
+
+.text {
+    font-family:'Times New Roman', Times, serif;
+    color:white;
+}
+
 .buttons{
     text-align: center;
 }
 .indbuttons{
-    background-color:#887bb0d0;
+    background-color:#887bb0ec;
+    text-align: center;
+    width: 200px;
+    height: 100px;
+    color: #85d2d0;
+    font-size: larger;
+    font-weight: bolder;
 }
 
 a:link{
@@ -38,5 +56,47 @@ a:active{
 }
 
 .audio{
+    text-align: center;
+}
+
+.nav{
+    text-align: right;
+}
+
+.navButtonregister{
+    background-color: #887bb0d0;
+    width: 100px;
+    height: 30px;
+}
+
+.navButtonlogin{
+    background-color: #887bb0d0;
+    width: 100px;
+    height: 30px;
+}
+
+.rulesText{
+    text-align: justify;
+}
+
+.buttonSingle{
+    background-color:#887bb0d0;
+    text-align: center;
+    width: 200px;
+    height: 100px;
+    color: #85d2d0;
+    font-size: larger;
+    font-weight: bolder;
+}
+
+.subtitulo{
+    font-family:'Times New Roman', Times, serif;
+    color:antiquewhite;
+    text-align: center;
+}
+
+.text{
+    font-family: 'Times New Roman', Times, serif;
+    color:antiquewhite;
     text-align: center;
 }
