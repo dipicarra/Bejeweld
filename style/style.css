@@ -1,6 +1,7 @@
 body{
     background-image: url("../media/bgi.jpg");
-    background-size: cover;
+    background-size:100% 150%;
+    background-repeat: no-repeat;
 }
 
 h1{
@@ -55,9 +56,6 @@ a:active{
     color: antiquewhite;
 }
 
-.audio{
-    text-align: center;
-}
 
 .nav{
     text-align: right;
@@ -98,5 +96,11 @@ a:active{
 .text{
     font-family: 'Times New Roman', Times, serif;
     color:antiquewhite;
+    text-align: center;
+}
+
+.textSingle{
+    font-family: 'Times New Roman', Times, serif;
+    color:rgba(250, 235, 215, 0);
     text-align: center;
 }
