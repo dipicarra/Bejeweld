@@ -1,3 +1,9 @@
+/*  Grupo: 23 
+Número: 60858 Nome: Diogo Piçarra PL:26
+Número:  Nome: José Lopes PL:26
+Número:  Nome: Vladana Giebler PL:26
+*/
+
 .buttons{
     text-align:center;
 }
@@ -20,4 +26,29 @@ footer{
     display: block;
     margin: auto;
     margin-top: 80px;
+}
+
+.form{
+    text-align: center;
+}
+
+.rulesh2{
+    margin-top: -5px;
+}
+
+.registerButton{
+    display: block;
+    margin:auto;
+    margin-top: 20px;
+}
+
+.logButton{
+    display: block;
+    margin:auto;
+    margin-top: 20px;
+}
+
+table{
+    display: flex;
+    justify-content: center;
 }
