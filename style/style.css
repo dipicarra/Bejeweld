@@ -133,6 +133,20 @@ a:active{
         font-weight: bolder;
 }
 
+.genderStyle{
+    color: antiquewhite;
+    font-family: 'Times New Roman', Times, serif;
+    text-align: center;
+    font-weight: bolder;
+}
+
+.ageStyle{
+    color: antiquewhite;
+    font-family: 'Times New Roman', Times, serif;
+    text-align: center;
+    font-weight: bolder;
+}
+
 input[type="submit"]{
     color: antiquewhite;
     font-size: large;

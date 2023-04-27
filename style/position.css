@@ -49,6 +49,10 @@ footer{
 }
 
 table{
-    display: flex;
     justify-content: center;
+}
+form {
+    display:grid;
+    justify-content: center;
+    align-items: center;
 }
