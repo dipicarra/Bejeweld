@@ -16,11 +16,30 @@
   <h2 class="subtitulo">Register</h2>
   <div class="form">
     <form method="post">
+    <label for="email" class="usernameStyle">Email:</label><br>
+      <input type="text" id="email" name="email"><br>
     <label for="user" class="usernameStyle">Username:</label><br>
-    <input type="text" id="user" name="user"><br>
+      <input type="text" id="user" name="user"><br>
     <label for="password" class="passwordStyle">Password:</label><br>
-    <input type="password" id="password" name="password">
-    <input type="submit" class="registerButton" value="Register!" onclick="alert('Registered!')">
+      <input type="password" id="password" name="password"><br>
+    <label for="gender" class ="genderStyle">Gender:</label><br>
+      <select id="gender" name="gender"><br>
+        <option value="">Please select one…</option>
+        <option value="female">Female</option>
+        <option value="male">Male</option>
+        <option value="non-binary">Non-Binary</option>
+        <option value="other">Other</option>
+        <option value="Prefer not to answer">Perfer not to Answer</option>
+      </select>
+    <label for="age" class="ageStyle">Age:</label><br>
+    <select id="age" name="gender"><br>
+      <option value="">Please select one…</option>
+      <option value="teen">12-18</option>
+      <option value="teenAdult">19-30</option>
+      <option value="adult">31-40</option>
+      <option value="old">41-75+</option>
+    </select>
+    <input type="submit" class="registerButton" id="btnregistar" value="Register!" onclick="alert('Registered!')">
   </form> 
   </div>
   <footer>
