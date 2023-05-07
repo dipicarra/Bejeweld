@@ -7,7 +7,6 @@
 <head>
   <link rel="stylesheet" href="style/style.css">
   <link rel="stylesheet" href="style/position.css">
-  <script src="scripts/login_dados_storage.js"></script>
   <meta charset="utf-8">
   <title>Login</title>
 </head>
@@ -15,13 +14,17 @@
   <h1>Bejeweled</h1>
   <h2 class="subtitulo">Login</h2>
   <div class="form">
+    <!-- INICIO FORM -->
     <form method="post">
-    <label for="user" class="usernameStyle">Username:</label><br>
-    <input type="text" id="user" name="user"><br>
-    <label for="password" class="passwordStyle">Password:</label><br>
-    <input type="password" id="password" name="password">
-    <input type="button" class="logButton" id="btnlogin" value="Login!">
-  </form> 
+    <!-- USER -->
+      <label for="user" class="usernameStyle">Username:</label><br>
+        <input type="text" id="user" name="user"><br>
+    <!-- PASS -->
+      <label for="password" class="passwordStyle">Password:</label><br>
+        <input type="password" id="password" name="password"
+      
+      <input type="submit" class="logButton" value="Login!">
+    </form> 
   </div>
   <footer>
     <p class="homebutton"><a href="index.html">Back to Home</a></p>
