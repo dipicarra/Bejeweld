@@ -56,5 +56,28 @@ function addplayerdetails (){
 
     PLAYERDETAILS.push(player);
     salvarPlayerStorage();
+    validateForm()
 }
 
+function validateForm(){
+    let emailID = document.getElementById(EMAIL).value
+    let atpos = emailID.indexOf("@");
+    let dotpos = emailID.indexOf(".")
+    let username = document.getElementById(NOME).value
+    let pass = document.getElementById(PASS).value
+    let gen = document.getElementById(GENERO).value
+    let Age = document.getElementById(IDADE).value
+
+    if (atpos < 1 || (dotpos - atpos < 2)) {
+        alert("Enter a correct email.");
+        return false
+    } else if (username === ""){
+        alert("Enter a correct username.");
+    } else if (pass.length < 5) {
+        alert("Enter a password with more than 5 caracters.")
+    } else if (gen === ""){
+        alert("Please select a fitting gender.")
+    } else if (Age === ""){
+        alert("Please select a fitting age.")
+    }
+}
