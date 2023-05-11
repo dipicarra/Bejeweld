@@ -24,7 +24,6 @@ const leaders = [
 window.addEventListener("load", principal);
 
 function principal() {
-    console.log("theExport")
     desenharow()
 }
 
