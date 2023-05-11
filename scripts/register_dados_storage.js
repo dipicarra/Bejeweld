@@ -79,5 +79,7 @@ function validateForm(){
         alert("Please select a fitting gender.")
     } else if (Age === ""){
         alert("Please select a fitting age.")
+    } else {
+        alert("Registered!")
     }
 }
