@@ -23,23 +23,35 @@ function peca (id,imagem){
 }
 
 function onload() {
-    console.log("hello")
-    desenharTabela();
-    console.log(desenharTabela());
+    inicializarTabela();
+}
+
+function inicializarTabela(){ 
+    tabelaParaHtml = ""
+    tabela=desenharTabela();
+    tabela.forEach((linha, numeroLinha) => {
+        cadaLinha=""
+        linha.forEach((tpeca, numeroTpeca) => {
+            cadaLinha += "<td id=" + tpeca["id"] + "> <img src=" + tpeca["imagem"] + "></td>";  
+        });
+        tabelaParaHtml += "<tr id=" + numeroLinha + ">" + cadaLinha + "</tr>";
+    });
+    console.log(tabelaParaHtml);
+    document.getElementById("tabelajogo").innerHTML = tabelaParaHtml;
 }
 
 function desenharTabela(){
-    tabela=[]
+    tabela=[];
     for (let i = 0; i < ALTURA_TABELA; i++){
         linha=desenharRow();
-        tabela.push("<tr>"+ linha +"</tr>");
+        tabela.push(linha);
     }
-    document.getElementById("tabelajogo").innerHTML = tabela;
     return tabela;
 }
 
+
 function desenharRow(){
-    novaLinha=[]
+    novaLinha=[];
     for (let i = 0; i < LARGURA_TABELA; i++){
         novaLinha.push(generarPeca());
         novaLinha = verSeHaTresEmLinha(novaLinha);
