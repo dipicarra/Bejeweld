@@ -5,6 +5,7 @@ const PASS = "password"
 const GENERO = "gender"
 const IDADE = "age"
 const EMAIL = "email"
+const LOGEDIN = "logedin"
 
 /** Butões */
 
@@ -16,13 +17,14 @@ const PLAYERLIST = "playerList"
 
 let PLAYERDETAILS = []
 
-function Player (user, password, genero, idade, email){
+function Player (user, password, genero, idade, email,logedin){
 
     this.user=user;
     this.password=password;
     this.genero=genero;
     this.idade=idade;
     this.email=email;
+    this.logedin=logedin;
 }
 
 window.addEventListener("load", onload);
@@ -52,34 +54,10 @@ function addplayerdetails (){
                         document.getElementById(PASS).value,
                         document.getElementById(GENERO).value,
                         document.getElementById(IDADE).value,
-                        document.getElementById(EMAIL).value);
+                        document.getElementById(EMAIL).value),
+                        False;
 
     PLAYERDETAILS.push(player);
     salvarPlayerStorage();
-    validateForm()
 }
 
-function validateForm(){
-    let emailID = document.getElementById(EMAIL).value
-    let atpos = emailID.indexOf("@");
-    let dotpos = emailID.indexOf(".")
-    let username = document.getElementById(NOME).value
-    let pass = document.getElementById(PASS).value
-    let gen = document.getElementById(GENERO).value
-    let Age = document.getElementById(IDADE).value
-
-    if (atpos < 1 || (dotpos - atpos < 2)) {
-        alert("Enter a correct email.");
-        return false
-    } else if (username === ""){
-        alert("Enter a correct username.");
-    } else if (pass.length < 5) {
-        alert("Enter a password with more than 5 caracters.")
-    } else if (gen === ""){
-        alert("Please select a fitting gender.")
-    } else if (Age === ""){
-        alert("Please select a fitting age.")
-    } else {
-        alert("Registered!")
-    }
-}

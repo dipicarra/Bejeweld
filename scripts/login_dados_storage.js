@@ -40,17 +40,12 @@ function butoes(){
 }
 
 function testarlogin () {
-    console.log(PLAYERLIST)
-}
-
-
-function validateLogin(){
-    let username = document.getElementById(NOME).value
-    let pass = document.getElementById(PASS).value
-
-    if(username === ""){
-        alert("Please enter a username.")
-    } else if (pass.length < 5 || pass === ""){
-        alert("Please enter a password with more than 5 caracters")
+    for player in PLAYERLIST{
+        if player[1] == user{
+            if player[2] == password{
+                
+            }
+        }
+        
     }
 }
