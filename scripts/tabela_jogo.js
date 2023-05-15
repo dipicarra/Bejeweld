@@ -2,8 +2,8 @@ PECAS=[];
 
 // DEFINIR O TAMANHO DA TABELA
 
-ALTURA_TABELA=8;
-LARGURA_TABELA=8;
+let ALTURA_TABELA=8;
+let LARGURA_TABELA=8;
 
 window.addEventListener("load", onload);
 
@@ -27,21 +27,20 @@ function onload() {
 }
 
 function inicializarTabela(){ 
-    tabelaParaHtml = ""
-    tabela=desenharTabela();
+    let tabelaParaHtml = ""
+    let tabela=eliminarPecasAMais(desenharTabela());
     tabela.forEach((linha, numeroLinha) => {
-        cadaLinha=""
+        let cadaLinha=""
         linha.forEach((tpeca, numeroTpeca) => {
             cadaLinha += "<td id=" + tpeca["id"] + "> <img src=" + tpeca["imagem"] + "></td>";  
         });
         tabelaParaHtml += "<tr id=" + numeroLinha + ">" + cadaLinha + "</tr>";
     });
-    console.log(tabelaParaHtml);
     document.getElementById("tabelajogo").innerHTML = tabelaParaHtml;
 }
 
 function desenharTabela(){
-    tabela=[];
+    let tabela=[];
     for (let i = 0; i < ALTURA_TABELA; i++){
         linha=desenharRow();
         tabela.push(linha);
@@ -51,10 +50,9 @@ function desenharTabela(){
 
 
 function desenharRow(){
-    novaLinha=[];
+    let novaLinha=[];
     for (let i = 0; i < LARGURA_TABELA; i++){
         novaLinha.push(generarPeca());
-        novaLinha = verSeHaTresEmLinha(novaLinha);
     }
     return novaLinha;
 }
@@ -63,13 +61,47 @@ function generarPeca(){
     return cadaPeca[Math.floor(Math.random()*cadaPeca.length)];
 }
 
-function verSeHaTresEmLinha(linha){
-    for (let i=0; i < linha.lenght; i++){
-        if (linha[i] == linha[i+1]){
-            linha.pop(i+1);
-            linha.push(generarPeca());
-            verSeHaTresEmLinha(linha);
+function verSeHaTresEmLinha(tabela){
+    let listaDe3EmLinha=[];
+    for (let linha=0; linha < tabela.length; linha++){
+        for (let tpeca=0; tpeca<tabela[linha].length; tpeca++){
+            let contador=1;
+            for (let tpecaSeguinte = tpeca+1; tpecaSeguinte < tabela[linha].length; tpecaSeguinte++) {
+                if (tabela[linha][tpeca] == tabela[linha][tpecaSeguinte]){
+                    contador +=1;
+                }
+                else{
+                    break
+                };
+            }
+            if (contador >= 3){
+                listaDe3EmLinha.push([linha,tpeca,contador,tabela[linha][tpeca]["id"]]);
+            }
         }
     }
-    return linha;
+    return listaDe3EmLinha;
+}
+
+function eliminarPecasAMais(tabela){
+
+    /**Recebe uma tabela, vê se existe algum 3 ou mais de seguida e 
+    elimina todos menos o primeiro para aleatorios (podem ser os mesmos mas
+    corre outra vez)*/
+
+    let listaAMais = verSeHaTresEmLinha(tabela);
+    console.log(listaAMais);
+    while (listaAMais.length > 0){
+        for (let aMais=0; aMais<listaAMais.length; aMais++){
+            let linhaAmais = listaAMais[aMais][0];
+            let pecaAmais = listaAMais[aMais][1];
+            let quantas = listaAMais[aMais][2];
+            for (let mudar=1; mudar<(quantas); mudar++) {
+                console.log(tabela[linhaAmais][pecaAmais+mudar])
+                tabela[linhaAmais][pecaAmais+mudar]=generarPeca();
+                console.log(tabela[linhaAmais][pecaAmais+mudar])
+            }
+        listaAMais = verSeHaTresEmLinha(tabela);
+        }
+    }
+    return tabela
 }
