@@ -1,3 +1,9 @@
+// Grupo: 23 -->
+//Número: 60858 Nome: Diogo Piçarra PL:26-->
+//Número:  Nome: José Lopes PL:26-->
+//Número:  Nome: Vladana Giebler PL:26-->
+
+
 PECAS=[];
 
 // DEFINIR O TAMANHO DA TABELA
