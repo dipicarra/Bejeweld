@@ -102,9 +102,7 @@ function eliminarPecasAMais(tabela){
             let pecaAmais = listaAMais[aMais][1];
             let quantas = listaAMais[aMais][2];
             for (let mudar=1; mudar<(quantas); mudar++) {
-                console.log(tabela[linhaAmais][pecaAmais+mudar])
                 tabela[linhaAmais][pecaAmais+mudar]=generarPeca();
-                console.log(tabela[linhaAmais][pecaAmais+mudar])
             }
         listaAMais = verSeHaTresEmLinha(tabela);
         }
