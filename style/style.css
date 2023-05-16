@@ -211,3 +211,9 @@ td{
     width: 200px;
     height: 20px;
 }
+
+.timer{
+    font-family:'Times New Roman', Times, serif;
+    color:antiquewhite;
+    text-align: center;
+}
