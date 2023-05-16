@@ -68,6 +68,9 @@ function generarPeca(){
 }
 
 function verSeHaTresEmLinha(tabela){
+    /** isto funciona para mais de 3 mas n me aptece mudar o nome da funcao
+    o return vai ser uma lista que contem listas com a nº linha, nº da peça, quantas de seguida, e o tipo de peça  */ 
+
     let listaDe3EmLinha=[];
     for (let linha=0; linha < tabela.length; linha++){
         for (let tpeca=0; tpeca<tabela[linha].length; tpeca++){
