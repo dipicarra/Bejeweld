@@ -3,13 +3,12 @@
 //Número:  Nome: José Lopes PL:26-->
 //Número:  Nome: Vladana Giebler PL:26-->
 
-
-PECAS=[];
-
 // DEFINIR O TAMANHO DA TABELA
 
 let ALTURA_TABELA=8;
 let LARGURA_TABELA=8;
+
+var peca_clicada=null;
 
 window.addEventListener("load", onload);
 
@@ -38,12 +37,58 @@ function inicializarTabela(){
     tabela.forEach((linha, numeroLinha) => {
         let cadaLinha=""
         linha.forEach((tpeca, numeroTpeca) => {
-            cadaLinha += "<td id=" + tpeca["id"] + "> <img src=" + tpeca["imagem"] + "></td>";  
+            cadaLinha += "<td id=" + tpeca["id"]+ 
+            "> <img class= 'not-clicked' id='peca"+ numeroLinha + numeroTpeca + "'src=" + tpeca["imagem"]+
+            "></td>";
         });
         tabelaParaHtml += "<tr id=" + numeroLinha + ">" + cadaLinha + "</tr>";
     });
     document.getElementById("tabelajogo").innerHTML = tabelaParaHtml;
+    
+    // Adicionar eventlisteners a cada peça
+
+    tabela.forEach((linha, numeroLinha) => {
+        linha.forEach((tpeca, numeroTpeca) => {
+            const imageId = "peca" + numeroLinha + numeroTpeca
+            const image = document.getElementById(imageId);
+            image.addEventListener("click", function(){
+                moverPeca(imageId);
+            });
+    });
+  });
 }
+
+function moverPeca(imageId) {
+    if (peca_clicada==null){
+        peca_clicada = imageId;
+    }
+    else if (verSePecaAdjacente(peca_clicada,imageId)==true){
+        console.log("Image clicked:", imageId, verSePecaAdjacente(peca_clicada,imageId));
+        let pecaAntiga=document.getElementById(peca_clicada);
+        let pecaNova=document.getElementById(imageId);
+        let temp=pecaNova.src;
+        pecaNova.src=pecaAntiga.src;
+        pecaAntiga.src=temp;
+        peca_clicada=null
+    }
+    else{
+        peca_clicada=null
+    }
+}
+
+function verSePecaAdjacente(pecaAntiga,pecaNova){
+    let resultado=false
+    if (pecaAntiga[pecaAntiga.length-2] == pecaNova[pecaNova.length-2] &&
+        (Math.abs(parseInt(pecaAntiga[pecaAntiga.length-1])-parseInt(pecaNova[pecaNova.length-1])))==1){
+            resultado=true;
+        }
+    else if (pecaAntiga[pecaAntiga.length-1] == pecaNova[pecaNova.length-1] &&
+        (Math.abs(parseInt(pecaAntiga[pecaAntiga.length-2])-parseInt(pecaNova[pecaNova.length-2])))==1){
+            resultado=true;
+        }
+    return resultado
+}
+
 
 function desenharTabela(){
     let tabela=[];
@@ -98,7 +143,6 @@ function eliminarPecasAMais(tabela){
     corre outra vez)*/
 
     let listaAMais = verSeHaTresEmLinha(tabela);
-    console.log(listaAMais);
     while (listaAMais.length > 0){
         for (let aMais=0; aMais<listaAMais.length; aMais++){
             let linhaAmais = listaAMais[aMais][0];
