@@ -218,6 +218,27 @@ td{
     text-align: center;
 }
 
+.grey{
+    filter: grayscale(1);
+}
+
+.start{
+    background-color:#887bb0ec;
+    text-align: center;
+    width: 300px;
+    height: 100px;
+    color: #85d2d0;
+    font-size: larger;
+    font-weight: bolder;
+    z-index: 1;
+    margin: 0;
+    position: absolute;
+    margin-top: 410px;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+
 #tabelajogo{
     background-color: #001145;
 }
