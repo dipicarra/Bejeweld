@@ -12,6 +12,8 @@ var peca_clicada=null;
 
 var jogo=[];
 
+var pontuacao = 0;
+
 window.addEventListener("load", onload);
 
 const cadaPeca = [
@@ -40,7 +42,7 @@ function inicializarTabela(){
         let cadaLinha="";
         linha.forEach((tpeca, numeroTpeca) => {
             cadaLinha += "<td id=" + numeroTpeca + 
-            "> <img style='width:50px; height:50px' id='peca"+ numeroLinha + numeroTpeca + "'src=" + tpeca["imagem"] +
+            "> <img style=width:50px; height:50px id='" + numeroLinha + numeroTpeca + "' src=" + tpeca["imagem"] +
             "></td>";
         });
         tabelaParaHtml += "<tr id=" + numeroLinha + ">" + cadaLinha + "</tr>";
@@ -51,7 +53,7 @@ function inicializarTabela(){
 
     jogo.forEach((linha, numeroLinha) => {
         linha.forEach((tpeca, numeroTpeca) => {
-            const imageId = "peca" + numeroLinha + numeroTpeca;
+            const imageId = numeroLinha + numeroTpeca;
             const image = document.getElementById(imageId);
             image.addEventListener("click", function(){
                 image.parentNode.classList.add("clicked");
@@ -66,29 +68,30 @@ function moverPeca(imageId) {
         peca_clicada = imageId;
     }
     else if (verSePecaAdjacente(peca_clicada,imageId)==true){
-        console.log("Image clicked:", imageId, verSePecaAdjacente(peca_clicada,imageId));
+        let tempjogo=jogo[parseInt(imageId[0])][parseInt(imageId[1])];
+        jogo[parseInt(imageId[0])][parseInt(imageId[1])]=jogo[parseInt(peca_clicada[0])][parseInt(peca_clicada[1])];
+        jogo[parseInt(peca_clicada[0])][parseInt(peca_clicada[1])]=tempjogo;
 
-        
-
-        let tempjogo=jogo[parseInt(imageId[imageId.length-2])][parseInt(imageId[imageId.length-1])];
-        jogo[parseInt(imageId[imageId.length-2])][parseInt(imageId[imageId-1])]=jogo[parseInt(peca_clicada[peca_clicada.length-2])][parseInt(peca_clicada[peca_clicada.length-1])];
-        jogo[parseInt(peca_clicada[peca_clicada.length-2])][parseInt(peca_clicada[peca_clicada.length-1])]=tempjogo;
-
-        console.log(jogo);
-
-        let pecaAntiga=document.getElementById(peca_clicada);
-        let pecaNova=document.getElementById(imageId);
-        pecaNova.parentNode.classList.remove("clicked");
-        pecaAntiga.parentNode.classList.remove("clicked");
-        
-        let temp=pecaNova.src;
-        pecaNova.src=pecaAntiga.src;
-        pecaAntiga.src=temp;
-        
-        peca_clicada=null;
+        if (verSeHaTresEmLinha(jogo)>0){
+            let pecaAntiga=document.getElementById(peca_clicada);
+            let pecaNova=document.getElementById(imageId);
+            pecaNova.parentNode.classList.remove("clicked");
+            pecaAntiga.parentNode.classList.remove("clicked");
+            
+            let temp=pecaNova.src;
+            pecaNova.src=pecaAntiga.src;
+            pecaAntiga.src=temp;
+            
+            peca_clicada=null;
+            capturarpecas();
+        }
+        else{
+            let tempjogo = jogo[parseInt(imageId[0])][parseInt(imageId[1])];
+            jogo[parseInt(imageId[0])][parseInt(imageId[1])] = jogo[parseInt(peca_clicada[0])][parseInt(peca_clicada[1])];
+            jogo[parseInt(peca_clicada[0])][parseInt(peca_clicada[1])] = tempjogo;
+        }
     }
     else{
-        console.log("Image clicked:", imageId, verSePecaAdjacente(peca_clicada,imageId));
         let pecaAntiga=document.getElementById(peca_clicada);
         let pecaNova=document.getElementById(imageId);
         pecaNova.parentNode.classList.remove("clicked");
@@ -99,12 +102,12 @@ function moverPeca(imageId) {
 
 function verSePecaAdjacente(pecaAntiga,pecaNova){
     let resultado=false
-    if (pecaAntiga[pecaAntiga.length-2] == pecaNova[pecaNova.length-2] &&
-        (Math.abs(parseInt(pecaAntiga[pecaAntiga.length-1])-parseInt(pecaNova[pecaNova.length-1])))==1){
+    if (pecaAntiga[0] == pecaNova[0] &&
+        (Math.abs(parseInt(pecaAntiga[0])-parseInt(pecaNova[1])))==1){
             resultado=true;
         }
-    else if (pecaAntiga[pecaAntiga.length-1] == pecaNova[pecaNova.length-1] &&
-        (Math.abs(parseInt(pecaAntiga[pecaAntiga.length-2])-parseInt(pecaNova[pecaNova.length-2])))==1){
+    else if (pecaAntiga[1] == pecaNova[1] &&
+        (Math.abs(parseInt(pecaAntiga[0])-parseInt(pecaNova[0])))==1){
             resultado=true;
         }
     return resultado;
@@ -178,4 +181,11 @@ function eliminarPecasAMais(tabela){
     return tabela
 }
 
-//function capturarpecas(tabela)
+function capturarpecas(){
+
+    let emLinha=verSeHaTresEmLinha(jogo);
+
+    while (emLinha.length>0){
+
+    }
+}
