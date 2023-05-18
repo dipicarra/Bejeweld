@@ -41,26 +41,25 @@ function inicializarTabela(){
     jogo.forEach((linha, numeroLinha) => {
         let cadaLinha="";
         linha.forEach((tpeca, numeroTpeca) => {
-            cadaLinha += "<td id=" + numeroTpeca + 
-            "> <img style=width:50px; height:50px id='" + numeroLinha + numeroTpeca + "' src=" + tpeca["imagem"] +
+            cadaLinha += "<td id= L" + numeroLinha + numeroTpeca + 
+            "> <img style='width:50px; height:50px' id='" + numeroLinha + numeroTpeca + "' src=" + tpeca["imagem"] +
             "></td>";
         });
-        tabelaParaHtml += "<tr id=" + numeroLinha + ">" + cadaLinha + "</tr>";
+        tabelaParaHtml += "<tr id= r" + numeroLinha + ">" + cadaLinha + "</tr>";
     });
     document.getElementById("tabelajogo").innerHTML = tabelaParaHtml;
     
     // Adicionar eventlisteners a cada peça
 
-    jogo.forEach((linha, numeroLinha) => {
-        linha.forEach((tpeca, numeroTpeca) => {
-            const imageId = numeroLinha + numeroTpeca;
-            const image = document.getElementById(imageId);
-            image.addEventListener("click", function(){
-                image.parentNode.classList.add("clicked");
-                moverPeca(imageId);
-            });
-    });
-  });
+    const pecasJogo = document.querySelectorAll("#tabelajogo td");
+
+    pecasJogo.forEach((pecaJogo) => {
+        pecaJogo.addEventListener("click", () => {
+            pecaJogo.classList.add("clicked");
+            let imageId = pecaJogo.querySelector("img").id;
+            moverPeca(imageId);
+        });
+    });    
 }
 
 function moverPeca(imageId) {
@@ -72,12 +71,12 @@ function moverPeca(imageId) {
         jogo[parseInt(imageId[0])][parseInt(imageId[1])]=jogo[parseInt(peca_clicada[0])][parseInt(peca_clicada[1])];
         jogo[parseInt(peca_clicada[0])][parseInt(peca_clicada[1])]=tempjogo;
 
-        if (verSeHaTresEmLinha(jogo)>0){
-            let pecaAntiga=document.getElementById(peca_clicada);
-            let pecaNova=document.getElementById(imageId);
-            pecaNova.parentNode.classList.remove("clicked");
-            pecaAntiga.parentNode.classList.remove("clicked");
-            
+        let pecaAntiga=document.getElementById(peca_clicada);
+        let pecaNova=document.getElementById(imageId);
+        pecaNova.parentNode.classList.remove("clicked");
+        pecaAntiga.parentNode.classList.remove("clicked");
+
+        if (verSeHaTresEmLinha(jogo).length>0){            
             let temp=pecaNova.src;
             pecaNova.src=pecaAntiga.src;
             pecaAntiga.src=temp;
@@ -89,6 +88,8 @@ function moverPeca(imageId) {
             let tempjogo = jogo[parseInt(imageId[0])][parseInt(imageId[1])];
             jogo[parseInt(imageId[0])][parseInt(imageId[1])] = jogo[parseInt(peca_clicada[0])][parseInt(peca_clicada[1])];
             jogo[parseInt(peca_clicada[0])][parseInt(peca_clicada[1])] = tempjogo;
+
+            peca_clicada=null;
         }
     }
     else{
@@ -103,7 +104,7 @@ function moverPeca(imageId) {
 function verSePecaAdjacente(pecaAntiga,pecaNova){
     let resultado=false
     if (pecaAntiga[0] == pecaNova[0] &&
-        (Math.abs(parseInt(pecaAntiga[0])-parseInt(pecaNova[1])))==1){
+        (Math.abs(parseInt(pecaAntiga[1])-parseInt(pecaNova[1])))==1){
             resultado=true;
         }
     else if (pecaAntiga[1] == pecaNova[1] &&
@@ -154,6 +155,7 @@ function verSeHaTresEmLinha(tabela){
             }
             if (contador >= 3){
                 listaDe3EmLinha.push([linha,tpeca,contador,tabela[linha][tpeca]["id"]]);
+                tpeca += contador;
             }
         }
     }
