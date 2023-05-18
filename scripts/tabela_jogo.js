@@ -38,7 +38,7 @@ function inicializarTabela(){
         let cadaLinha=""
         linha.forEach((tpeca, numeroTpeca) => {
             cadaLinha += "<td id=" + tpeca["id"]+ 
-            "> <img class= 'not-clicked' id='peca"+ numeroLinha + numeroTpeca + "'src=" + tpeca["imagem"]+
+            "> <img style='width:50px; height:50px' class= 'not-clicked' id='peca"+ numeroLinha + numeroTpeca + "'src=" + tpeca["imagem"]+
             "></td>";
         });
         tabelaParaHtml += "<tr id=" + numeroLinha + ">" + cadaLinha + "</tr>";

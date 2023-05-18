@@ -202,7 +202,7 @@ td , tr{
     padding: 10px;
 }
 
-tr:nth-child(even){
+#scoreboardtable tr:nth-child(even){
     background-color: #dddd;
     color: rgb(46, 46, 46)
 }
@@ -216,4 +216,8 @@ td{
     font-family:'Times New Roman', Times, serif;
     color:antiquewhite;
     text-align: center;
+}
+
+#tabelajogo{
+    background-color: #001145;
 }
