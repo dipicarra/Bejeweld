@@ -10,6 +10,8 @@ let LARGURA_TABELA=8;
 
 var peca_clicada=null;
 
+var jogo=[];
+
 window.addEventListener("load", onload);
 
 const cadaPeca = [
@@ -32,13 +34,13 @@ function onload() {
 }
 
 function inicializarTabela(){ 
-    let tabelaParaHtml = ""
-    let tabela=eliminarPecasAMais(desenharTabela());
-    tabela.forEach((linha, numeroLinha) => {
-        let cadaLinha=""
+    let tabelaParaHtml = "";
+    jogo=eliminarPecasAMais(desenharTabela());
+    jogo.forEach((linha, numeroLinha) => {
+        let cadaLinha="";
         linha.forEach((tpeca, numeroTpeca) => {
-            cadaLinha += "<td id=" + tpeca["id"]+ 
-            "> <img style='width:50px; height:50px' class= 'not-clicked' id='peca"+ numeroLinha + numeroTpeca + "'src=" + tpeca["imagem"]+
+            cadaLinha += "<td id=" + numeroTpeca + 
+            "> <img style='width:50px; height:50px' id='peca"+ numeroLinha + numeroTpeca + "'src=" + tpeca["imagem"] +
             "></td>";
         });
         tabelaParaHtml += "<tr id=" + numeroLinha + ">" + cadaLinha + "</tr>";
@@ -47,11 +49,12 @@ function inicializarTabela(){
     
     // Adicionar eventlisteners a cada peça
 
-    tabela.forEach((linha, numeroLinha) => {
+    jogo.forEach((linha, numeroLinha) => {
         linha.forEach((tpeca, numeroTpeca) => {
-            const imageId = "peca" + numeroLinha + numeroTpeca
+            const imageId = "peca" + numeroLinha + numeroTpeca;
             const image = document.getElementById(imageId);
             image.addEventListener("click", function(){
+                image.parentNode.classList.add("clicked");
                 moverPeca(imageId);
             });
     });
@@ -64,15 +67,33 @@ function moverPeca(imageId) {
     }
     else if (verSePecaAdjacente(peca_clicada,imageId)==true){
         console.log("Image clicked:", imageId, verSePecaAdjacente(peca_clicada,imageId));
+
+        
+
+        let tempjogo=jogo[parseInt(imageId[imageId.length-2])][parseInt(imageId[imageId.length-1])];
+        jogo[parseInt(imageId[imageId.length-2])][parseInt(imageId[imageId-1])]=jogo[parseInt(peca_clicada[peca_clicada.length-2])][parseInt(peca_clicada[peca_clicada.length-1])];
+        jogo[parseInt(peca_clicada[peca_clicada.length-2])][parseInt(peca_clicada[peca_clicada.length-1])]=tempjogo;
+
+        console.log(jogo);
+
         let pecaAntiga=document.getElementById(peca_clicada);
         let pecaNova=document.getElementById(imageId);
+        pecaNova.parentNode.classList.remove("clicked");
+        pecaAntiga.parentNode.classList.remove("clicked");
+        
         let temp=pecaNova.src;
         pecaNova.src=pecaAntiga.src;
         pecaAntiga.src=temp;
-        peca_clicada=null
+        
+        peca_clicada=null;
     }
     else{
-        peca_clicada=null
+        console.log("Image clicked:", imageId, verSePecaAdjacente(peca_clicada,imageId));
+        let pecaAntiga=document.getElementById(peca_clicada);
+        let pecaNova=document.getElementById(imageId);
+        pecaNova.parentNode.classList.remove("clicked");
+        pecaAntiga.parentNode.classList.remove("clicked");
+        peca_clicada=null;
     }
 }
 
@@ -86,7 +107,7 @@ function verSePecaAdjacente(pecaAntiga,pecaNova){
         (Math.abs(parseInt(pecaAntiga[pecaAntiga.length-2])-parseInt(pecaNova[pecaNova.length-2])))==1){
             resultado=true;
         }
-    return resultado
+    return resultado;
 }
 
 
@@ -156,3 +177,5 @@ function eliminarPecasAMais(tabela){
     }
     return tabela
 }
+
+//function capturarpecas(tabela)
