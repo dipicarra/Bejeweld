@@ -253,3 +253,21 @@ td{
 .clicked{
     background-color: #D60270;
 }
+
+.endButton{
+    background-color:#887bb0ec;
+    text-align: center;
+    width: 200px;
+    height: 100px;
+    color: #85d2d0;
+    font-size: larger;
+    font-weight: bolder;
+    z-index: 1;
+    cursor:pointer;
+}
+
+.end{
+    padding: 5em;
+    display: flex;
+    justify-content:center;    
+}
