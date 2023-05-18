@@ -76,13 +76,13 @@ function moverPeca(imageId) {
         pecaNova.parentNode.classList.remove("clicked");
         pecaAntiga.parentNode.classList.remove("clicked");
 
-        if (verSeHaTresEmLinha(jogo).length>0){            
+        if (verSeHaTresEmLinha(jogo).length>0){    
             let temp=pecaNova.src;
             pecaNova.src=pecaAntiga.src;
             pecaAntiga.src=temp;
             
             peca_clicada=null;
-            capturarpecas();
+            //capturarpecas();
         }
         else{
             let tempjogo = jogo[parseInt(imageId[0])][parseInt(imageId[1])];
