@@ -202,7 +202,7 @@ td , tr{
     padding: 10px;
 }
 
-tr:nth-child(even){
+#scoreboardtable tr:nth-child(even){
     background-color: #dddd;
     color: rgb(46, 46, 46)
 }
@@ -237,4 +237,8 @@ td{
     left: 50%;
     -ms-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
+}
+
+#tabelajogo{
+    background-color: #001145;
 }
