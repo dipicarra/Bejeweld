@@ -3,8 +3,7 @@ function timer(){
     let sec = 0;
     let min = 0
     var timer = setInterval(function(){
-        document.getElementById('timer').innerHTML='Time:' +min +':' +sec;
-        
+        document.getElementById('timer').innerHTML=+min +':' +sec;
         if (sec == 60) {
             min++;
             sec = 0;

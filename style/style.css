@@ -44,6 +44,7 @@ ul{
     color: #85d2d0;
     font-size: larger;
     font-weight: bolder;
+    cursor:pointer;
 }
 
 a:link{
@@ -80,6 +81,7 @@ a:active{
     font-family: 'Times New Roman', Times, serif;
     font-weight: bolder;
     font-size:medium;
+    cursor:pointer;
 }
 
 .navButtonlogin{
@@ -91,6 +93,7 @@ a:active{
     font-family: 'Times New Roman', Times, serif;
     font-weight: bolder;
     font-size:medium;
+    cursor:pointer;
 }
 
 .rulesText{
@@ -105,6 +108,7 @@ a:active{
     color: #85d2d0;
     font-size: larger;
     font-weight: bolder;
+    cursor:pointer;
 }
 
 .subtitulo{
@@ -160,6 +164,7 @@ input[type="submit"]{
     color: #85d2d0;
     font-size: larger;
     font-weight: bolder;
+    cursor:pointer;
 }
 
 .logButton{
@@ -170,6 +175,7 @@ input[type="submit"]{
     color: #85d2d0;
     font-size: larger;
     font-weight: bolder;
+    cursor:pointer;
 }
 
 .indexFooter{
@@ -237,6 +243,7 @@ td{
     left: 50%;
     -ms-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
+    cursor:pointer;
 }
 
 #tabelajogo{
@@ -245,4 +252,22 @@ td{
 
 .clicked{
     background-color: #D60270;
+}
+
+.endButton{
+    background-color:#887bb0ec;
+    text-align: center;
+    width: 200px;
+    height: 100px;
+    color: #85d2d0;
+    font-size: larger;
+    font-weight: bolder;
+    z-index: 1;
+    cursor:pointer;
+}
+
+.end{
+    padding: 5em;
+    display: flex;
+    justify-content:center;    
 }
