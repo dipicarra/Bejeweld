@@ -4,7 +4,6 @@ function timer(){
     let min = 0
     var timer = setInterval(function(){
         document.getElementById('timer').innerHTML='Time:' +min +':' +sec;
-        
         if (sec == 60) {
             min++;
             sec = 0;
