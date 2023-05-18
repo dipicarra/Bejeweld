@@ -35,10 +35,14 @@ function onload() {
     inicializarTabela();
 }
 
-function inicializarTabela(){ 
-    let tabelaParaHtml = "";
+function inicializarTabela(){
     jogo=eliminarPecasAMais(desenharTabela());
-    jogo.forEach((linha, numeroLinha) => {
+    arrayParaHtml(jogo);
+}
+
+function arrayParaHtml(game){
+    let tabelaParaHtml = "";
+    game.forEach((linha, numeroLinha) => {
         let cadaLinha="";
         linha.forEach((tpeca, numeroTpeca) => {
             cadaLinha += "<td id= L" + numeroLinha + numeroTpeca + 
@@ -48,8 +52,6 @@ function inicializarTabela(){
         tabelaParaHtml += "<tr id= r" + numeroLinha + ">" + cadaLinha + "</tr>";
     });
     document.getElementById("tabelajogo").innerHTML = tabelaParaHtml;
-    
-    // Adicionar eventlisteners a cada peça
 
     const pecasJogo = document.querySelectorAll("#tabelajogo td");
 
@@ -82,7 +84,7 @@ function moverPeca(imageId) {
             pecaAntiga.src=temp;
             
             peca_clicada=null;
-            //capturarpecas();
+            capturarpecas();
         }
         else{
             let tempjogo = jogo[parseInt(imageId[0])][parseInt(imageId[1])];
@@ -188,6 +190,16 @@ function capturarpecas(){
     let emLinha=verSeHaTresEmLinha(jogo);
 
     while (emLinha.length>0){
-
+        emLinha.forEach((conjunto) => {
+            for (let numConjunto=0; numConjunto<conjunto[2]; numConjunto++){
+                for (let qntacima=0; qntacima<conjunto[0]; qntacima++){
+                    jogo[conjunto[0]-qntacima][conjunto[1]+numConjunto]=jogo[conjunto[0]-qntacima-1][conjunto[1]+numConjunto];
+                }
+                jogo[0][conjunto[1]+numConjunto]=generarPeca();
+            }
+        })
+        console.log(jogo);
+        emLinha=verSeHaTresEmLinha(jogo);
     }
+    arrayParaHtml(jogo);
 }
