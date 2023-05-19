@@ -45,25 +45,39 @@ function butoes(){
 
 function testarlogin (inputUser, inputPass) {
     let existe = false;
+    let contador=0;
+    let iCerto=0;
 
     for (let i = 0; i < PLAYERDETAILS.length; i++) {
-    const regPlayer = PLAYERDETAILS[i];user
+    const regPlayer = PLAYERDETAILS[i];
         if (inputUser === String(regPlayer.user) && inputPass === String(regPlayer.password) && String(regPlayer.logedin) === "no") {
             existe = true;
-            PLAYERDETAILS[i].logedin="yes";
-            localStorage.setItem(PLAYERLIST,JSON.stringify(PLAYERDETAILS));
-            window.alert("You just logged in congrats i guess")
-            break;
+            iCerto=i;
         } 
-        else if (regPlayer.LOGEDIN === "no") {
-            existe = "logged in";
+        else if (String(regPlayer.logedin) === "yes") {
+            if(inputUser === String(regPlayer.user) && inputPass === String(regPlayer.password)){
+                existe="logged in";
+            }
+            else{
+                contador+=1;
+            }
         }
     }
     if (existe == false) {
-        window.alert("This account does not exist, please register.");
+        window.alert("This account does not exist, please register u dumdum.");
     } 
     else if (existe == "logged in") {
-        window.alert("This account is already logged in.");
+        window.alert(inputUser + " is already logged in.");
+    }
+    else{
+        if (contador > 1){
+            window.alert("Too many people logged in.");
+        }
+        else{
+            PLAYERDETAILS[iCerto].logedin="yes";
+            localStorage.setItem(PLAYERLIST,JSON.stringify(PLAYERDETAILS));
+            window.alert("You just logged in congrats i guess");
+        }
     }
     console.log(PLAYERDETAILS);
 }
