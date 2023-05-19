@@ -13,6 +13,11 @@ var peca_clicada=null;
 var jogo=[];
 
 var pontuacao = 0;
+const PONTUACAO = "pontuacao";
+
+//AUDIO
+const blep3 = new Audio("media/Blop 3.mp3")
+const torololo = new Audio("media/Torololo.mp3")
 
 window.addEventListener("load", onload);
 
@@ -66,6 +71,7 @@ function arrayParaHtml(game){
 
 function moverPeca(imageId) {
     if (peca_clicada==null){
+        blep3.play();
         peca_clicada = imageId;
     }
     else if (verSePecaAdjacente(peca_clicada,imageId)==true){
@@ -190,7 +196,9 @@ function capturarpecas(){
     let emLinha=verSeHaTresEmLinha(jogo);
 
     while (emLinha.length>0){
+        torololo.play();
         emLinha.forEach((conjunto) => {
+            pontuacao+=conjunto[2]-2;
             for (let numConjunto=0; numConjunto<conjunto[2]; numConjunto++){
                 for (let qntacima=0; qntacima<conjunto[0]; qntacima++){
                     jogo[conjunto[0]-qntacima][conjunto[1]+numConjunto]=jogo[conjunto[0]-qntacima-1][conjunto[1]+numConjunto];
@@ -198,8 +206,9 @@ function capturarpecas(){
                 jogo[0][conjunto[1]+numConjunto]=generarPeca();
             }
         })
-        console.log(jogo);
         emLinha=verSeHaTresEmLinha(jogo);
     }
+    
+    document.getElementById(PONTUACAO).innerHTML=pontuacao;
     arrayParaHtml(jogo);
 }

@@ -271,3 +271,9 @@ td{
     display: flex;
     justify-content:center;    
 }
+
+#pontos{
+    font-size:larger;
+    color: white;
+    -webkit-text-stroke: 0.1px black;
+}
