@@ -56,8 +56,31 @@ function addplayerdetails (){
                         document.getElementById(IDADE).value,
                         document.getElementById(EMAIL).value,
                         "no");
+    let existe=false;
 
-    PLAYERDETAILS.push(player);
-    salvarPlayerStorage();
+    PLAYERDETAILS.forEach(regPlayer => {
+        if (regPlayer.user==player.user){
+            existe="user";
+            if (regPlayer.email==player.email){
+                existe+="email";
+            }}
+        else if (regPlayer.email==player.email){
+            existe="email";
+        }
+    });
+    if (existe==false){
+        PLAYERDETAILS.push(player);
+        salvarPlayerStorage();
+        window.alert("Registo feito, vai dar login se quiseres uwu");
+    }
+    else if (existe=="user"){
+        window.alert("Já existe alguem com esse username");
+    }
+    else if (existe=="email"){
+        window.alert("Já existe alguem com esse email");
+    }
+    else if (existe=="useremail"){
+        window.alert("Já existe alguem com esse email e com esse username");
+    }
 }
 
