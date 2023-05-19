@@ -54,8 +54,8 @@ function addplayerdetails (){
                         document.getElementById(PASS).value,
                         document.getElementById(GENERO).value,
                         document.getElementById(IDADE).value,
-                        document.getElementById(EMAIL).value),
-                        False;
+                        document.getElementById(EMAIL).value,
+                        "no");
 
     PLAYERDETAILS.push(player);
     salvarPlayerStorage();
