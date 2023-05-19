@@ -31,8 +31,7 @@ window.addEventListener("load", onload);
 
 
 function onload() {
-    PLAYERDETAILS = JSON.parse(localStorage.getItem(PLAYERLIST)) || []
-
+    PLAYERDETAILS = JSON.parse(localStorage.getItem(PLAYERLIST)) || [];
     butoes();
 }
 

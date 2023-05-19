@@ -1,23 +1,23 @@
 /** Dados */
 
-const NOME = "user"
-const PASS = "password"
-const GENERO = "gender"
-const IDADE = "age"
-const EMAIL = "email"
-const LOGEDIN = "logedin"
+const NOME = "user";
+const PASS = "password";
+const GENERO = "gender";
+const IDADE = "age";
+const EMAIL = "email";
+const LOGEDIN = "logedin";
 
 /** Butões */
 
-const BOTAOREGISTAR = "btnregistar"
+const BOTAOLOGIN = "btnregistar";
 
 /** Lista */
 
-const PLAYERLIST = "playerList"
+const PLAYERLIST = "playerList";
 
-let PLAYERDETAILS = []
+let PLAYERDETAILS = [];
 
-function Player (user, password, genero, idade, email,logedin){
+function Player (user, password, genero, idade, email, logedin){
 
     this.user=user;
     this.password=password;
@@ -31,7 +31,7 @@ window.addEventListener("load", onload);
 
 
 function onload() {
-    PLAYERDETAILS = JSON.parse(localStorage.getItem(PLAYERLIST)) || []
+    PLAYERDETAILS = JSON.parse(localStorage.getItem(PLAYERLIST)) || [];
     butoes();
 }
 

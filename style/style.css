@@ -73,7 +73,7 @@ a:active{
     text-align: right;
 }
 
-.navButtonregister{
+.navButtonIndex{
     background-color: #887bb0d0;
     width: 100px;
     height: 30px;
@@ -84,12 +84,11 @@ a:active{
     cursor:pointer;
 }
 
-.navButtonlogin{
-    background-color: #887bb0d0;
+.logoutbuttonIndex{
+    background-color: #d35891d0;
     width: 100px;
     height: 30px;
-    text-align: center;
-    color:#85d2d0;
+    color: #85d2d0;
     font-family: 'Times New Roman', Times, serif;
     font-weight: bolder;
     font-size:medium;
