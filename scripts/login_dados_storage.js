@@ -47,7 +47,7 @@ function testarlogin (inputUser, inputPass) {
     let existe = false;
 
     for (let i = 0; i < PLAYERDETAILS.length; i++) {
-    const regPlayer = PLAYERDETAILS[i];
+    const regPlayer = PLAYERDETAILS[i];user
         if (inputUser === String(regPlayer.user) && inputPass === String(regPlayer.password) && String(regPlayer.logedin) === "no") {
             existe = true;
             PLAYERDETAILS[i].logedin="yes";
