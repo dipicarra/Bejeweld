@@ -50,11 +50,18 @@ function butoes() {
             let button = document.getElementById(nomeJogador);
 
             button.addEventListener("click", () => {
-                regPlayer.logedin="no";
-                localStorage.setItem(PLAYERLIST,JSON.stringify(PLAYERDETAILS));
-                window.alert(nomeJogador+" foi logged out");
-                button.remove();
-                mostrarJogos();
+                let resultado = confirm("Stats do jogador " + nomeJogador+":\nNúmero de jogos: " + regPlayer.stats['games']+
+                                        "\nTempo total jogado: "+ regPlayer.stats['time']+
+                                        "\nPontuação máxima: "+ regPlayer.stats['maxscore']+
+                                        "\n\nPretende dar Log out?");
+                if (resultado){
+                    regPlayer.logedin="no";
+                    localStorage.setItem(PLAYERLIST,JSON.stringify(PLAYERDETAILS));
+                    window.alert(nomeJogador+" foi logged out");
+                    button.remove();
+                    mostrarJogos();
+                }
+                
             });
         }
     });
@@ -67,10 +74,17 @@ function mostrarJogos(){
             jogadoresLogin+=1;
         }
     });
-    if (jogadoresLogin<2){
-        document.getElementById(BOTAOMULTI).disabled=true;
+    if (jogadoresLogin==2){
+        document.getElementById(BOTAOSINGLE).disabled=true;
+        document.getElementById(BOTAOMULTI).disabled=false;
     }
-    if (jogadoresLogin<1){
+    else if (jogadoresLogin==1){
+        document.getElementById(BOTAOMULTI).disabled=true;
+        document.getElementById(BOTAOSINGLE).disabled=false;
+    }
+    else {
+        document.getElementById(BOTAOMULTI).disabled=true;
         document.getElementById(BOTAOSINGLE).disabled=true;
     }
+
 };

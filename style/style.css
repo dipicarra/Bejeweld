@@ -22,6 +22,10 @@ ul{
     list-style-type: none;
 }
 
+.desaparecer{
+    display: none;
+}
+
 .rulesh2{
     font-family:'Times New Roman', Times, serif;
     color:antiquewhite;
@@ -36,18 +40,8 @@ ul{
 .buttons{
     text-align: center;
 }
-.indbuttons{
-    background-color:#887bb0dc;
-    text-align: center;
-    width: 200px;
-    height: 100px;
-    color: #69eae6;
-    font-size: larger;
-    font-weight: bolder;
-    cursor:pointer;
-}
 
-.buttonSingle{
+.buttonindex{
     background-color:#887bb0dc;
     text-align: center;
     width: 200px;

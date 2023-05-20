@@ -9,13 +9,10 @@ function leader(nome, highscore){
 }
 
 const leaders = [
-            // nome      highscore
-    new leader ("fjisda", 9999),
-    new leader ("fjisda1", 9999),
-    new leader ("fjisda2", 9999),
-    new leader ("fjisda3", 9999),
-    new leader ("fjisda4", 9999),
-    new leader ("fjisda5", 9999),
+            // nome      highscore  time
+    new leader ("Vladana", 9999, "00:01"),
+    new leader ("Diogo", 9999,"00:01"),
+    new leader ("José", 9999, "00:01"),
     ];
 
 

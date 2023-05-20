@@ -12,21 +12,23 @@ footer{
     text-align: left;
 }
 
-.indbuttons{
-    display: block;
+#buttonsindex{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     margin: auto;
-    margin-top: 20px;
+    margin-top: 80px;
+}
+
+.buttonindex{
+    margin-bottom: 20px;
 }
 
 .navButtonregister{
     margin-right: 50px;
 }
 
-.buttonSingle{
-    display: block;
-    margin: auto;
-    margin-top: 80px;
-}
+
 
 .form{
     text-align: center;

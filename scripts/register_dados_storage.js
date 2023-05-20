@@ -9,7 +9,7 @@ const LOGEDIN = "logedin";
 
 /** Butões */
 
-const BOTAOLOGIN = "btnregistar";
+const BOTAOREGISTAR = "btnregistar";
 
 /** Lista */
 
@@ -57,9 +57,9 @@ function addplayerdetails (){
                         document.getElementById(IDADE).value,
                         document.getElementById(EMAIL).value,
                         "no",
-                        ["games" = 0,
-                        "time" = 0,
-                        "maxscore" = 0]
+                        {"games": 0,
+                        "time": 0,
+                        "maxscore": 0}
                         );
     let existe=false;
 

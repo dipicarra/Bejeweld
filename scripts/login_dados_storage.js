@@ -79,5 +79,4 @@ function testarlogin (inputUser, inputPass) {
             window.alert("You just logged in congrats i guess");
         }
     }
-    console.log(PLAYERDETAILS);
 }

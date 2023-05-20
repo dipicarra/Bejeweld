@@ -9,6 +9,8 @@
   <link rel="stylesheet" href="style/style.css">
   <link rel="stylesheet" href="style/position.css">
   <script defer src="scripts/logout_index.js"></script> <!-- DEFER SERVE PARA ISTO CORRER QUANDO A PAGINA DER LOAD, ISTO TAVA A DAR PROBLEMAS COM O NAV-->
+  <script src="scripts/index_game_reset.js"></script>
+  <script defer src="scripts/index_buttons.js"></script>
   <title> Bejeweled </title>
 </head>
 <body>
@@ -17,15 +19,18 @@
   </header>
   <div class="nav">
   <nav id="navindex">
-        <button type="button" class="navButtonIndex" onclick="window.location.href='login.html'">Login</button>
-        <button type="button" class="navButtonIndex" onclick="window.location.href='register.html'">Register</button>
+        <button id="btnlogin" class="navButtonIndex">Login</button>
+        <button id="btnregister" class="navButtonIndex">Register</button>
   </nav>
   </div>
-  <div class="buttons">
-          <button type="button" id="btnsingleplayer" class="buttonSingle" onclick="window.location.href='loading.html'">Singleplayer</button>
-        <button type="button" id="btnmultiplayer" class="indbuttons" onclick="window.location.href='multiplayer.html'">Multiplayer</button>
-        <button class="indbuttons" onclick="window.location.href='stats.html'">Stats    </button> 
-      <button type="button" class="indbuttons" onclick="window.location.href='rules.html'">Rules</button>
+  <div id="buttonsindex" class="buttons">
+        <button id="btnsingleplayer" class="buttonindex">Singleplayer</button>
+        <button id="btnmultiplayer" class="buttonindex">Multiplayer</button>
+        <button id="btnscoreboard" class="buttonindex">Scoreboard</button> 
+        <button id="btnrules" class="buttonindex">Rules</button>
+        <button id="btnnormal" class="buttonindex desaparecer">Normal</button>
+        <button id="btninfinito" class="buttonindex desaparecer">Infinito</button>
+        <button id="btnvoltar" class="buttonindex desaparecer">Voltar</button>
   </div>
   <div>
     <audio autoplay loop id="bga" >
