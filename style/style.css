@@ -199,9 +199,6 @@ input[type="submit"]{
 }
 
 .creators{
-    color: antiquewhite;
-    font-weight: bolder;
-    font-size: xx-large;
     text-align: center;
 }
 
@@ -291,4 +288,29 @@ td{
     font-size:larger;
     color: white;
     -webkit-text-stroke: 0.1px black;
+}
+
+.names{
+    color: white;
+    font-size: xx-large;
+    font-weight: bold;
+}
+
+.disclaimer{
+    color: white;
+}
+
+.rainbow{
+    background-image: 
+    linear-gradient(to right, red,orange,yellow,green,blue,indigo,violet, red); 
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;  
+    animation: rainbow-animation 35s linear infinite;
+} 
+
+@keyframes rainbow-animation {
+    to {
+        background-position: 4500vh;
+    }
 }
