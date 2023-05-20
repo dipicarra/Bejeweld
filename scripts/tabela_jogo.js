@@ -8,6 +8,10 @@ let ALTURA_TABELA=8;
 let LARGURA_TABELA=8;
 let JOIAS=20;
 
+//PERCENTAGENS DE PECAS
+let PER_ESPECIAL=5;
+let PER_NORMAL=100-PER_ESPECIAL;
+
 //TABULEIRO
 var jogo=[];
 var peca_clicada=null;
@@ -31,9 +35,8 @@ let esteJogo = JSON.parse(localStorage.getItem("jogocurrente"));
 
 //BOTOES
 const BOTAO_DICA= "btndica";
+const BOTAO_SHUFFLE= "btnshuffle";
 const BOTAO_END="btnend";
-
-
 
 window.addEventListener("load", onload);
 
@@ -62,6 +65,7 @@ function peca (id,imagem){
 function onload() {
     definicoes();
     generarVisuais();
+    botoes();
 }
 
 function generarVisuais(){
@@ -93,7 +97,7 @@ function definicoes(){
         if (dificuldades == null){
             dificuldades = "facil"
         }
-        dificuldades.toString().toLowerCase().normalize();
+        dificuldades=dificuldades.toString().toLowerCase().normalize();
         if (dificuldades=="intermedio"){
             ALTURA_TABELA=9;
             LARGURA_TABELA=9;
@@ -111,7 +115,7 @@ function definicoes(){
         if (dificuldades == null){
             dificuldades = "tall"
         }
-        dificuldades.toString().toLowerCase().normalize();
+        dificuldades=dificuldades.toString().toLowerCase().normalize();
         if (dificuldades=="grande"){
             ALTURA_TABELA=9;
             LARGURA_TABELA=9;
@@ -341,6 +345,7 @@ function descerParaBaixoNull(){
             }
         }
     }
+    document.getElementById(JOIAS_DISPLAY).innerHTML=joias_destruidas;
     nullFicaNovaPeca();
 }
 
@@ -366,3 +371,18 @@ function nullFicaNovaPeca(){
         document.getElementById(TABELA_HTML).classList.add("clickable");
     };
 };
+
+function botoes(){
+    document.getElementById(BOTAO_DICA).addEventListener("click",dica);
+    document.getElementById(BOTAO_SHUFFLE).addEventListener("click",shuffle);
+    document.getElementById(BOTAO_END).addEventListener("click",endgame);
+};
+
+function dica(){
+    jogo.forEach((linha) => {
+        linha.forEach((tpeca)=> {
+            
+        })
+    })
+
+}
