@@ -16,7 +16,7 @@ var pontuacao = 0;
 const PONTUACAO = "pontuacao";
 
 //AUDIO
-const blep3 = new Audio("media/Blop 3.mp3")
+const blop3 = new Audio("media/Blop 3.mp3")
 const torololo = new Audio("media/Torololo.mp3")
 
 window.addEventListener("load", onload);
@@ -50,9 +50,15 @@ function arrayParaHtml(game){
     game.forEach((linha, numeroLinha) => {
         let cadaLinha="";
         linha.forEach((tpeca, numeroTpeca) => {
-            cadaLinha += "<td id= L" + numeroLinha + numeroTpeca + 
-            "> <img style='width:50px; height:50px' id='" + numeroLinha + numeroTpeca + "' src=" + tpeca["imagem"] +
-            "></td>";
+            if (tpeca==null){
+                cadaLinha += "<td id= L" + numeroLinha + numeroTpeca + 
+                "> <img style='width:50px; height:50px' id='" + numeroLinha + numeroTpeca + "' src='media/por/emptySlot.png'></td>";
+            }
+            else{
+                cadaLinha += "<td id= L" + numeroLinha + numeroTpeca + 
+                "> <img style='width:50px; height:50px' id='" + numeroLinha + numeroTpeca + "' src=" + tpeca["imagem"] +
+                "></td>";
+            }
         });
         tabelaParaHtml += "<tr id= r" + numeroLinha + ">" + cadaLinha + "</tr>";
     });
@@ -62,6 +68,7 @@ function arrayParaHtml(game){
 
     pecasJogo.forEach((pecaJogo) => {
         pecaJogo.addEventListener("click", () => {
+            blop3.play();
             pecaJogo.classList.add("clicked");
             let imageId = pecaJogo.querySelector("img").id;
             moverPeca(imageId);
@@ -71,7 +78,6 @@ function arrayParaHtml(game){
 
 function moverPeca(imageId) {
     if (peca_clicada==null){
-        blep3.play();
         peca_clicada = imageId;
     }
     else if (verSePecaAdjacente(peca_clicada,imageId)==true){
@@ -191,6 +197,7 @@ function verSeHaTresEmLinha(tabela){
             }
         }
     }
+    console.log(listaDe3EmLinha);
     return listaDe3EmLinha;
 }
 
@@ -214,47 +221,59 @@ function eliminarPecasAMais(tabela){
 
 function capturarpecas(){
 
+    //Matryoshka functions to make timeouts
+    setTimeout(emLinhaFicamNull,250)
+}
+
+function emLinhaFicamNull(){
+     //transformar todas as linas em nulls
     let emLinha=verSeHaTresEmLinha(jogo);
+    emLinha.forEach((conjunto) => {
+        pontuacao+=(conjunto.length)-2;
+        conjunto.forEach((pecalinha) => {
+            jogo[pecalinha[0]][pecalinha[1]]=null;
+        })
+    })
+    torololo.play();
+    arrayParaHtml(jogo);
+    setTimeout(descerParaBaixoNull, 250);
+}
 
-    while (emLinha.length>0){
-        torololo.play();
-
-        //transformar todas as linas em nulls
-        emLinha.forEach((conjunto) => {
-            pontuacao+=(conjunto.length)-2;
-            conjunto.forEach((pecalinha) => {
-                jogo[pecalinha[0]][pecalinha[1]]=null;
-            });
-        });
-
-        //mover pecas que tem nulls embaixo delas para baixo
-        for (coluna=0; coluna<jogo[0].length; coluna++){
-            let nullcounter=0;
-            for (linhaContraria = jogo.length-1; linhaContraria>=0; linhaContraria--){ //Vou correr a tabela debaixo para cima para puchar as pecas para baixo mais facilmente
-                if (jogo[linhaContraria][coluna]==null){
-                    nullcounter+=1
-                }
-                else if (linhaContraria < jogo.length-1){
-                    if (jogo[linhaContraria+1][coluna]==null && jogo[linhaContraria][coluna]!==null){
-                        jogo[linhaContraria+nullcounter][coluna]=jogo[linhaContraria][coluna];
-                        jogo[linhaContraria][coluna]=null;
-                    }
+function descerParaBaixoNull(){
+    //mover pecas que tem nulls embaixo delas para baixo
+    for (coluna=0; coluna<jogo[0].length; coluna++){
+        let nullcounter=0;
+        for (linhaContraria = jogo.length-1; linhaContraria>=0; linhaContraria--){ //Vou correr a tabela debaixo para cima para puchar as pecas para baixo mais facilmente
+            if (jogo[linhaContraria][coluna]==null){
+                nullcounter+=1
+            }
+            else if (linhaContraria < jogo.length-1){
+                if (jogo[linhaContraria+1][coluna]==null && jogo[linhaContraria][coluna]!==null){
+                    jogo[linhaContraria+nullcounter][coluna]=jogo[linhaContraria][coluna];
+                    jogo[linhaContraria][coluna]=null;
                 }
             }
         }
-
-        //todos os nulls passam a ser pecas novas
-        jogo.forEach((linha,linhaIndex)=>{
-            linha.forEach((tpeca,tpecaIndex)=>{
-                if (jogo[linhaIndex][tpecaIndex]==null){
-                    jogo[linhaIndex][tpecaIndex]=generarPeca();
-                }
-            })
-        })
-        emLinha=verSeHaTresEmLinha(jogo);
-        setTimeout(() => {}, 2000);
     }
-    
+    nullFicaNovaPeca();
+}
+
+
+function nullFicaNovaPeca(){
+    //todos os nulls passam a ser pecas novas
+    jogo.forEach((linha,linhaIndex)=>{
+        linha.forEach((tpeca,tpecaIndex)=>{
+            if (jogo[linhaIndex][tpecaIndex]==null){
+                jogo[linhaIndex][tpecaIndex]=generarPeca();
+            }
+        })
+    })
+    emLinha = verSeHaTresEmLinha(jogo);
+
     document.getElementById(PONTUACAO).innerHTML=pontuacao;
     arrayParaHtml(jogo);
+    
+    if (emLinha.length>0){
+        setTimeout(capturarpecas, 729);
+    }
 }
