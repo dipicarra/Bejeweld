@@ -1,21 +1,17 @@
 //BOTOES
 
-const BOTAO_LOGIN="btnlogin";
-const BOTAO_REGISTER="btnregister";
-const BOTAO_SINGLEPLAYER="btnsingleplayer";
-const BOTAO_MULTIPLAYER="btnmultiplayer";
-const BOTAO_SCOREBOARD="btnscoreboard";
-const BOTAO_RULES="btnrules";
-const BOTAO_NORMAL="btnnormal";
-const BOTAO_INFINITO="btninfinito";
-const BOTAO_VOLTAR="btnvoltar";
+const BOTAO_LOGIN = "btnlogin";
+const BOTAO_REGISTER = "btnregister";
+const BOTAO_SINGLEPLAYER = "btnsingleplayer";
+const BOTAO_MULTIPLAYER = "btnmultiplayer";
+const BOTAO_SCOREBOARD = "btnscoreboard";
+const BOTAO_RULES = "btnrules";
+const BOTAO_NORMAL = "btnnormal";
+const BOTAO_INFINITO = "btninfinito";
+const BOTAO_VOLTAR = "btnvoltar";
 
-let JOGOCURRENTE="jogocurrente";
-//let esteJogo=localStorage.getItem(JOGOCURRENTE);
+let esteJogo = JSON.parse(localStorage.getItem("jogocurrente"));
 
-console.log(localStorage.getItem(JOGOCURRENTE))
-
-console.log(document.getElementById(BOTAO_LOGIN))
 
 window.addEventListener("load", onload);
 
@@ -48,12 +44,19 @@ function singleOpcoes(){
 
 function botaoMultiplayer(){
     esteJogo[0]="multiplayer"
-
+    localStorage.setItem('jogocurrente', JSON.stringify(esteJogo));
+    window.location.href="multiplayer.html"
 };
 
-function botaoNormal(){};
+function botaoNormal(){
+    window.location.href="singleplayer.html"
+};
 
-function botaoInfinito(){};
+function botaoInfinito(){
+    esteJogo[0]="singleinfinito"
+    localStorage.setItem('jogocurrente', JSON.stringify(esteJogo));
+    window.location.href="singleplayer.html"
+};
 
 function botaoVoltar(){
     document.getElementById(BOTAO_SINGLEPLAYER).classList.remove("desaparecer");

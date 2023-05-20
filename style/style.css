@@ -52,7 +52,7 @@ ul{
     cursor:pointer;
 }
 
-.indbuttons:disabled{
+.buttonindex:disabled{
     background-color:#ad1313dc;
     text-align: center;
     width: 200px;
