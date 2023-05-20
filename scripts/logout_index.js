@@ -74,7 +74,7 @@ function mostrarJogos(){
             jogadoresLogin+=1;
         }
     });
-    if (jogadoresLogin==2){
+    if (jogadoresLogin>=2){
         document.getElementById(BOTAOSINGLE).disabled=true;
         document.getElementById(BOTAOMULTI).disabled=false;
     }

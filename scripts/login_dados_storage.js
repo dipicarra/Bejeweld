@@ -70,7 +70,7 @@ function testarlogin (inputUser, inputPass) {
         window.alert(inputUser + " is already logged in.");
     }
     else{
-        if (contador > 1){
+        if (contador > 3){
             window.alert("Too many people logged in.");
         }
         else{

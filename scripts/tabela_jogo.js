@@ -3,10 +3,11 @@
 //Número:  Nome: José Lopes PL:26-->
 //Número:  Nome: Vladana Giebler PL:26-->
 
-// DEFINIR O TAMANHO DA TABELA
+// DEFINICOES DO JOGO BASE
 
 let ALTURA_TABELA=8;
 let LARGURA_TABELA=8;
+let JOIAS=20;
 
 var peca_clicada=null;
 
@@ -18,6 +19,10 @@ const PONTUACAO = "pontuacao";
 //AUDIO
 const blop3 = new Audio("media/Blop 3.mp3")
 const torololo = new Audio("media/Torololo.mp3")
+
+//MODO DE JOGO
+
+let esteJogo = JSON.parse(localStorage.getItem("jogocurrente"));
 
 window.addEventListener("load", onload);
 
@@ -37,8 +42,29 @@ function peca (id,imagem){
 }
 
 function onload() {
+    definicoes();
     inicializarTabela();
 }
+
+function definicoes(){
+    if (esteJogo[0]=="singlenormal" || esteJogo[0]=="multiplayer"){
+        let dificuldades = window.prompt("Escolhe dificuldade:\n-Fácil (8x8, 20 joias)\n-Intermédio (9x9, 25 joias)\n-Difícil (10x10, 30 joias)");
+        dificuldades.toString().toLowerCase().normalize();
+        if (dificuldades=="intermedio"){
+            ALTURA_TABELA=9;
+            LARGURA_TABELA=9;
+            JOIAS=25;
+        }
+        else if (dificuldades=="dificil"){
+            ALTURA_TABELA=10;
+            LARGURA_TABELA=10;
+            JOIAS=30;
+        }
+    }
+    else if (esteJogo[0]=="singleinfinito"){
+
+    }
+};
 
 function inicializarTabela(){
     jogo=eliminarPecasAMais(desenharTabela());
@@ -276,4 +302,4 @@ function nullFicaNovaPeca(){
     if (emLinha.length>0){
         setTimeout(capturarpecas, 729);
     }
-}
+};
