@@ -4,28 +4,40 @@
 //Número:  Nome: Vladana Giebler PL:26-->
 
 // DEFINICOES DO JOGO BASE
-
 let ALTURA_TABELA=8;
 let LARGURA_TABELA=8;
 let JOIAS=20;
 
+//TABULEIRO
+var jogo=[];
 var peca_clicada=null;
 
-var jogo=[];
-
+//DADOS
 var pontuacao = 0;
+var joias_destruidas = 0;
 const PONTUACAO = "pontuacao";
+const JOIAS_DISPLAY = "joias";
+const JOIAS_TOTAIS = "joiastotais";
+const TITULO_JOGO = "titlejogo";
+const SUBTITULO_JOGO = "subtitulojogo";
+const TABELA_HTML = "tabelajogo";
 
 //AUDIO
-const blop3 = new Audio("media/Blop 3.mp3")
-const torololo = new Audio("media/Torololo.mp3")
+const blop3 = new Audio("media/Blop 3.mp3");
+const torololo = new Audio("media/Torololo.mp3");
 
 //MODO DE JOGO
-
 let esteJogo = JSON.parse(localStorage.getItem("jogocurrente"));
+
+//BOTOES
+const BOTAO_DICA= "btndica";
+const BOTAO_END="btnend";
+
+
 
 window.addEventListener("load", onload);
 
+//PECAS DISPONIVEIS
 const cadaPeca = [
     new peca ("azul","media/por/blueGem.png"),
     new peca ("verde","media/por/greenGem.png"),
@@ -34,21 +46,53 @@ const cadaPeca = [
     new peca ("vermelho","media/por/redGem.png"),
     new peca ("branco","media/por/whiteGem.png"),
     new peca ("amarelo","media/por/yellowGem.png")
+];
+
+const especiais = [
+    new peca ("bomba","media/por/bomb.png)"),
+    new peca ("tempo","media/por/time.png")
 ]
 
 function peca (id,imagem){
     this.id=id;
     this.imagem=imagem;
-}
+};
+
 
 function onload() {
     definicoes();
-    inicializarTabela();
+    generarVisuais();
 }
 
+function generarVisuais(){
+    if (esteJogo[0] == "singlenormal"){
+        document.getElementById(TITULO_JOGO).innerHTML="Singleplayer";
+        document.getElementById(SUBTITULO_JOGO).innerHTML="Singleplayer";
+        document.getElementById(JOIAS_TOTAIS).innerHTML=JOIAS;
+    }
+    else if (esteJogo[0] == "multinormal"){
+        document.getElementById(TITULO_JOGO).innerHTML="Multiplayer";
+        document.getElementById(SUBTITULO_JOGO).innerHTML="Multiplayer";
+        document.getElementById(JOIAS_TOTAIS).innerHTML=JOIAS;
+    }
+    else if (esteJogo[0] == "singleinfinito"){
+        document.getElementById(TITULO_JOGO).innerHTML="Singleplayer INFINITY";
+        document.getElementById(SUBTITULO_JOGO).innerHTML="Singleplayer INFINITY";
+        document.getElementById(JOIAS_TOTAIS).innerHTML="∞";
+    }
+    else if (esteJogo[0] == "multiInfinito"){
+        document.getElementById(TITULO_JOGO).innerHTML="Multiplayer INFINITY";
+        document.getElementById(SUBTITULO_JOGO).innerHTML="Multiplayer INFINITY";
+        document.getElementById(JOIAS_TOTAIS).innerHTML="∞";
+    };
+};
+
 function definicoes(){
-    if (esteJogo[0]=="singlenormal" || esteJogo[0]=="multiplayer"){
+    if (esteJogo[0]=="singlenormal" || esteJogo[0]=="multinormal"){
         let dificuldades = window.prompt("Escolhe dificuldade:\n-Fácil (8x8, 20 joias)\n-Intermédio (9x9, 25 joias)\n-Difícil (10x10, 30 joias)");
+        if (dificuldades == null){
+            dificuldades = "facil"
+        }
         dificuldades.toString().toLowerCase().normalize();
         if (dificuldades=="intermedio"){
             ALTURA_TABELA=9;
@@ -61,9 +105,23 @@ function definicoes(){
             JOIAS=30;
         }
     }
-    else if (esteJogo[0]=="singleinfinito"){
-
+    else if (esteJogo[0]=="singleinfinito" || esteJogo[0]=="multiInfinito"){
+        JOIAS=Infinity;
+        let dificuldades = window.prompt("Escolhe tamanho:\n-Tall (8x8)\n-Grande (9x9)\n-Venti (10x10)");
+        if (dificuldades == null){
+            dificuldades = "tall"
+        }
+        dificuldades.toString().toLowerCase().normalize();
+        if (dificuldades=="grande"){
+            ALTURA_TABELA=9;
+            LARGURA_TABELA=9;
+        }
+        else if (dificuldades=="venti"){
+            ALTURA_TABELA=10;
+            LARGURA_TABELA=10;
+        }
     }
+    inicializarTabela();
 };
 
 function inicializarTabela(){
@@ -88,16 +146,18 @@ function arrayParaHtml(game){
         });
         tabelaParaHtml += "<tr id= r" + numeroLinha + ">" + cadaLinha + "</tr>";
     });
-    document.getElementById("tabelajogo").innerHTML = tabelaParaHtml;
+    document.getElementById(TABELA_HTML).innerHTML = tabelaParaHtml;
 
     const pecasJogo = document.querySelectorAll("#tabelajogo td");
 
     pecasJogo.forEach((pecaJogo) => {
         pecaJogo.addEventListener("click", () => {
-            blop3.play();
-            pecaJogo.classList.add("clicked");
-            let imageId = pecaJogo.querySelector("img").id;
-            moverPeca(imageId);
+            if (document.getElementById(TABELA_HTML).classList.contains("clickable")) {
+                blop3.play();
+                pecaJogo.classList.add("clicked");
+                let imageId = pecaJogo.querySelector("img").id;
+                moverPeca(imageId);
+            }
         });
     });    
 }
@@ -223,7 +283,6 @@ function verSeHaTresEmLinha(tabela){
             }
         }
     }
-    console.log(listaDe3EmLinha);
     return listaDe3EmLinha;
 }
 
@@ -246,9 +305,9 @@ function eliminarPecasAMais(tabela){
 }
 
 function capturarpecas(){
-
+    document.getElementById(TABELA_HTML).classList.remove("clickable");
     //Matryoshka functions to make timeouts
-    setTimeout(emLinhaFicamNull,250)
+    setTimeout(emLinhaFicamNull,250);
 }
 
 function emLinhaFicamNull(){
@@ -271,6 +330,7 @@ function descerParaBaixoNull(){
         let nullcounter=0;
         for (linhaContraria = jogo.length-1; linhaContraria>=0; linhaContraria--){ //Vou correr a tabela debaixo para cima para puchar as pecas para baixo mais facilmente
             if (jogo[linhaContraria][coluna]==null){
+                joias_destruidas+=1
                 nullcounter+=1
             }
             else if (linhaContraria < jogo.length-1){
@@ -302,4 +362,7 @@ function nullFicaNovaPeca(){
     if (emLinha.length>0){
         setTimeout(capturarpecas, 729);
     }
+    else {
+        document.getElementById(TABELA_HTML).classList.add("clickable");
+    };
 };
