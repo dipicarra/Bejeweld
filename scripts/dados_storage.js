@@ -17,13 +17,15 @@ const PLAYERLIST = "playerList"
 
 let PLAYERDETAILS = []
 
-function Player (user, password, genero, idade, email){
+function Player (user, password, genero, idade, email, logedin, stats){
 
     this.user=user;
     this.password=password;
     this.genero=genero;
     this.idade=idade;
     this.email=email;
+    this.logedin=logedin;
+    this.stats=stats;
 }
 
 window.addEventListener("load", onload);

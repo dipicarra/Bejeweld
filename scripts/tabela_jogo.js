@@ -146,15 +146,18 @@ function generarPeca(){
 }
 
 function verSeHaTresEmLinha(tabela){
-    /** isto funciona para mais de 3 mas n me aptece mudar o nome da funcao
-    o return vai ser uma lista que contem listas com a nº linha, nº da peça, quantas de seguida, e o tipo de peça  */ 
+    // isto funciona para mais de 3 mas n me aptece mudar o nome da funcao
 
     let listaDe3EmLinha=[];
+
+    //HORIZONTAL
     for (let linha=0; linha < tabela.length; linha++){
         for (let tpeca=0; tpeca<tabela[linha].length; tpeca++){
             let contador=1;
+            let conjunto=[[linha,tpeca]];
             for (let tpecaSeguinte = tpeca+1; tpecaSeguinte < tabela[linha].length; tpecaSeguinte++) {
                 if (tabela[linha][tpeca] == tabela[linha][tpecaSeguinte]){
+                    conjunto.push([linha,tpecaSeguinte]);
                     contador +=1;
                 }
                 else{
@@ -162,7 +165,28 @@ function verSeHaTresEmLinha(tabela){
                 };
             }
             if (contador >= 3){
-                listaDe3EmLinha.push([linha,tpeca,contador,tabela[linha][tpeca]["id"]]);
+                listaDe3EmLinha.push(conjunto);
+                tpeca += contador;
+            }
+        }
+    }
+
+    //VERTICAL
+    for (let coluna=0; coluna < tabela[0].length; coluna++){
+        for (let tpeca=0; tpeca<tabela.length; tpeca++){
+            let contador=1;
+            let conjunto=[[tpeca,coluna]];
+            for (let tpecaSeguinte = tpeca+1; tpecaSeguinte < tabela.length; tpecaSeguinte++) {
+                if (tabela[tpeca][coluna] == tabela[tpecaSeguinte][coluna]){
+                    conjunto.push([tpecaSeguinte,coluna]);
+                    contador +=1;
+                }
+                else{
+                    break
+                };
+            }
+            if (contador >= 3){
+                listaDe3EmLinha.push(conjunto);
                 tpeca += contador;
             }
         }
@@ -178,16 +202,13 @@ function eliminarPecasAMais(tabela){
 
     let listaAMais = verSeHaTresEmLinha(tabela);
     while (listaAMais.length > 0){
-        for (let aMais=0; aMais<listaAMais.length; aMais++){
-            let linhaAmais = listaAMais[aMais][0];
-            let pecaAmais = listaAMais[aMais][1];
-            let quantas = listaAMais[aMais][2];
-            for (let mudar=1; mudar<(quantas); mudar++) {
-                tabela[linhaAmais][pecaAmais+mudar]=generarPeca();
-            }
+        listaAMais.forEach((aMais) => {
+            aMais.forEach((pecaMa)=>{
+                tabela[pecaMa[0]][pecaMa[1]]=generarPeca();
+            })
+        })
         listaAMais = verSeHaTresEmLinha(tabela);
         }
-    }
     return tabela
 }
 
@@ -197,16 +218,41 @@ function capturarpecas(){
 
     while (emLinha.length>0){
         torololo.play();
+
+        //transformar todas as linas em nulls
         emLinha.forEach((conjunto) => {
-            pontuacao+=conjunto[2]-2;
-            for (let numConjunto=0; numConjunto<conjunto[2]; numConjunto++){
-                for (let qntacima=0; qntacima<conjunto[0]; qntacima++){
-                    jogo[conjunto[0]-qntacima][conjunto[1]+numConjunto]=jogo[conjunto[0]-qntacima-1][conjunto[1]+numConjunto];
+            pontuacao+=(conjunto.length)-2;
+            conjunto.forEach((pecalinha) => {
+                jogo[pecalinha[0]][pecalinha[1]]=null;
+            });
+        });
+
+        //mover pecas que tem nulls embaixo delas para baixo
+        for (coluna=0; coluna<jogo[0].length; coluna++){
+            let nullcounter=0;
+            for (linhaContraria = jogo.length-1; linhaContraria>=0; linhaContraria--){ //Vou correr a tabela debaixo para cima para puchar as pecas para baixo mais facilmente
+                if (jogo[linhaContraria][coluna]==null){
+                    nullcounter+=1
                 }
-                jogo[0][conjunto[1]+numConjunto]=generarPeca();
+                else if (linhaContraria < jogo.length-1){
+                    if (jogo[linhaContraria+1][coluna]==null && jogo[linhaContraria][coluna]!==null){
+                        jogo[linhaContraria+nullcounter][coluna]=jogo[linhaContraria][coluna];
+                        jogo[linhaContraria][coluna]=null;
+                    }
+                }
             }
+        }
+
+        //todos os nulls passam a ser pecas novas
+        jogo.forEach((linha,linhaIndex)=>{
+            linha.forEach((tpeca,tpecaIndex)=>{
+                if (jogo[linhaIndex][tpecaIndex]==null){
+                    jogo[linhaIndex][tpecaIndex]=generarPeca();
+                }
+            })
         })
         emLinha=verSeHaTresEmLinha(jogo);
+        setTimeout(() => {}, 2000);
     }
     
     document.getElementById(PONTUACAO).innerHTML=pontuacao;

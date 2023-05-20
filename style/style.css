@@ -37,11 +37,44 @@ ul{
     text-align: center;
 }
 .indbuttons{
-    background-color:#887bb0ec;
+    background-color:#887bb0dc;
     text-align: center;
     width: 200px;
     height: 100px;
-    color: #85d2d0;
+    color: #69eae6;
+    font-size: larger;
+    font-weight: bolder;
+    cursor:pointer;
+}
+
+.buttonSingle{
+    background-color:#887bb0dc;
+    text-align: center;
+    width: 200px;
+    height: 100px;
+    color: #69eae6;
+    font-size: larger;
+    font-weight: bolder;
+    cursor:pointer;
+}
+
+.indbuttons:disabled{
+    background-color:#ad1313dc;
+    text-align: center;
+    width: 200px;
+    height: 100px;
+    color: #69eae6;
+    font-size: larger;
+    font-weight: bolder;
+    cursor:pointer;
+}
+
+.buttonSingle:disabled{
+    background-color:#ad1313dc;
+    text-align: center;
+    width: 200px;
+    height: 100px;
+    color: #69eae6;
     font-size: larger;
     font-weight: bolder;
     cursor:pointer;
@@ -85,7 +118,7 @@ a:active{
 }
 
 .logoutbuttonIndex{
-    background-color: #d35891d0;
+    background-color: #d35891;
     width: 100px;
     height: 30px;
     color: #85d2d0;
@@ -97,17 +130,6 @@ a:active{
 
 .rulesText{
     text-align: justify;
-}
-
-.buttonSingle{
-    background-color:#887bb0d0;
-    text-align: center;
-    width: 200px;
-    height: 100px;
-    color: #85d2d0;
-    font-size: larger;
-    font-weight: bolder;
-    cursor:pointer;
 }
 
 .subtitulo{
