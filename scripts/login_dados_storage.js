@@ -82,6 +82,11 @@ function testarlogin (inputUser, inputPass) {
             PLAYERDETAILS[iCerto].logedin="yes";
             localStorage.setItem(PLAYERLIST,JSON.stringify(PLAYERDETAILS));
             window.alert("You just logged in.");
+            redirect()
         }
     }
+}
+
+function redirect(){
+    window.location = "index.html"
 }
