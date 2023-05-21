@@ -7,9 +7,10 @@
 let ALTURA_TABELA=8;
 let LARGURA_TABELA=8;
 let JOIAS=20;
+let TEMPOMULTI=20;
 
 //PERCENTAGENS DE PECAS
-let PER_ESPECIAL=5;
+let PER_ESPECIAL=15;
 let PER_NORMAL=100-PER_ESPECIAL;
 
 //TABULEIRO
@@ -26,6 +27,10 @@ const TITULO_JOGO = "titlejogo";
 const SUBTITULO_JOGO = "subtitulojogo";
 const TABELA_HTML = "tabelajogo";
 const IMPOSSIVEL = "impossivel";
+const TIMERMULTITXT = "timermultitxt";
+const TIMERMULTI = "timermulti";
+const PLAYERLIST = "playerList";
+let PLAYERDETAILS = [];
 
 //AUDIO
 const blop3 = new Audio("media/Blop 3.mp3");
@@ -59,7 +64,7 @@ const cadaPeca = [
 ];
 
 const especiais = [
-    new peca ("bomba","media/por/bomb.png)"),
+    new peca ("bomba","media/por/bomb.png"),
     new peca ("tempo","media/por/time.png")
 ]
 
@@ -70,6 +75,7 @@ function peca (id,imagem){
 
 
 function onload() {
+    PLAYERDETAILS = JSON.parse(localStorage.getItem(PLAYERLIST)) || [];
     definicoes();
     generarTitulos();
     botoes();
@@ -86,6 +92,8 @@ function generarTitulos(){
         document.getElementById(TITULO_JOGO).innerHTML="Multiplayer";
         document.getElementById(SUBTITULO_JOGO).innerHTML="Multiplayer";
         document.getElementById(JOIAS_TOTAIS).innerHTML=JOIAS;
+        document.getElementById(TIMERMULTITXT).classList.remove("desaparecer");
+        countdown(TEMPOMULTI);
     }
     else if (esteJogo[0] == "singleinfinito"){
         document.getElementById(TITULO_JOGO).innerHTML="Singleplayer INFINITY";
@@ -96,6 +104,8 @@ function generarTitulos(){
         document.getElementById(TITULO_JOGO).innerHTML="Multiplayer INFINITY";
         document.getElementById(SUBTITULO_JOGO).innerHTML="Multiplayer INFINITY";
         document.getElementById(JOIAS_TOTAIS).innerHTML="∞";
+        document.getElementById(TIMERMULTITXT).classList.remove("desaparecer");
+        countdown(TEMPOMULTI);
     };
 };
 
@@ -246,7 +256,15 @@ function desenharRow(){
 }
 
 function generarPeca(){
-    return cadaPeca[Math.floor(Math.random()*cadaPeca.length)];
+    let tipopeca=Math.floor(Math.random()*100)
+    let pecagerada=null
+    if (tipopeca < PER_ESPECIAL){
+        pecagerada = especiais[Math.floor(Math.random()*especiais.length)];
+    }
+    else {
+        pecagerada = cadaPeca[Math.floor(Math.random()*cadaPeca.length)];
+    }
+    return pecagerada;
 }
 
 function verSeHaTresEmLinha(tabela){
@@ -259,14 +277,49 @@ function verSeHaTresEmLinha(tabela){
         for (let tpeca=0; tpeca<tabela[linha].length; tpeca++){
             let contador=1;
             let conjunto=[[linha,tpeca]];
+            let tipoespecial=null;
+            let tiponormal=null;
             for (let tpecaSeguinte = tpeca+1; tpecaSeguinte < tabela[linha].length; tpecaSeguinte++) {
-                if (tabela[linha][tpeca] == tabela[linha][tpecaSeguinte]){
-                    conjunto.push([linha,tpecaSeguinte]);
-                    contador +=1;
+                if (especiais.some(obj => obj.id == tabela[linha][tpeca].id)){
+                    tipoespecial=tabela[linha][tpeca].id
+                    if (tabela[linha][tpecaSeguinte].id==tipoespecial){
+                        conjunto.push([linha,tpecaSeguinte]);
+                        contador+=1;
+                    }
+                    else if (tabela[linha][tpecaSeguinte].id==tiponormal){
+                        conjunto.push([linha,tpecaSeguinte]);
+                        contador+=1;
+                    }
+
+                    else if (tiponormal==null && cadaPeca.some(obj => obj.id == tabela[linha][tpecaSeguinte].id)){
+                        tiponormal=tabela[linha][tpecaSeguinte].id
+                        conjunto.push([linha,tpecaSeguinte]);
+                        contador+=1;
+                    }
+                    else{
+                        break
+                    }
                 }
-                else{
-                    break
-                };
+                else if (cadaPeca.some(obj => obj.id == tabela[linha][tpeca].id)){
+                    tiponormal=tabela[linha][tpeca].id
+                    if(tabela[linha][tpecaSeguinte].id==tiponormal){
+                        conjunto.push([linha,tpecaSeguinte]);
+                        contador+=1;
+                    }
+                    else if (tabela[linha][tpecaSeguinte].id==tipoespecial){
+                        conjunto.push([linha,tpecaSeguinte]);
+                        contador+=1;
+                    }
+
+                    else if (tipoespecial==null && especiais.some(obj => obj.id == tabela[linha][tpecaSeguinte].id)){
+                        tipoespecial=tabela[linha][tpecaSeguinte].id
+                        conjunto.push([linha,tpecaSeguinte]);
+                        contador+=1;
+                    }
+                    else{
+                        break
+                    }
+                }  
             }
             if (contador >= 3){
                 listaDe3EmLinha.push(conjunto);
@@ -280,15 +333,49 @@ function verSeHaTresEmLinha(tabela){
         for (let tpeca=0; tpeca<tabela.length; tpeca++){
             let contador=1;
             let conjunto=[[tpeca,coluna]];
+            let tipoespecial=null;
+            let tiponormal=null;
             for (let tpecaSeguinte = tpeca+1; tpecaSeguinte < tabela.length; tpecaSeguinte++) {
-                if (tabela[tpeca][coluna] == tabela[tpecaSeguinte][coluna]){
-                    conjunto.push([tpecaSeguinte,coluna]);
-                    contador +=1;
+                if (especiais.some(obj => obj.id == tabela[tpeca][coluna].id)){
+                    tipoespecial=tabela[tpeca][coluna].id
+                    if (tabela[tpecaSeguinte][coluna].id==tipoespecial){
+                        conjunto.push([tpecaSeguinte,coluna]);
+                        contador+=1;
+                    }
+                    else if (tabela[tpecaSeguinte][coluna].id==tiponormal){
+                        conjunto.push([tpecaSeguinte,coluna]);
+                        contador+=1;
+                    }
+                    else if (tiponormal==null && cadaPeca.some(obj => obj.id == tabela[tpecaSeguinte][coluna].id)){
+                        tiponormal=tabela[tpecaSeguinte][coluna].id
+                        conjunto.push([tpecaSeguinte,coluna]);
+                        contador+=1;
+                    }
+                    else{
+                        break
+                    }
                 }
-                else{
-                    break
-                };
+                else if (cadaPeca.some(obj => obj.id == tabela[tpeca][coluna].id)){
+                    tiponormal=tabela[tpeca][coluna].id
+                    if(tabela[tpecaSeguinte][coluna].id==tiponormal){
+                        conjunto.push([tpecaSeguinte,coluna]);
+                        contador+=1;
+                    }
+                    else if (tabela[tpecaSeguinte][coluna].id==tipoespecial){
+                        conjunto.push([tpecaSeguinte,coluna]);
+                        contador+=1;
+                    }
+                    else if (tipoespecial==null && especiais.some(obj => obj.id == tabela[tpecaSeguinte][coluna].id)){
+                        tipoespecial=tabela[tpecaSeguinte][coluna].id
+                        conjunto.push([tpecaSeguinte,coluna]);
+                        contador+=1;
+                    }
+                    else{
+                        break
+                    }
+                }  
             }
+            
             if (contador >= 3){
                 listaDe3EmLinha.push(conjunto);
                 tpeca += contador;
@@ -317,21 +404,60 @@ function eliminarPecasAMais(tabela){
 }
 
 function capturarpecas(){
-    document.getElementById(TABELA_HTML).classList.remove("clickable");
-    actualizarSideboard()
-    //Matryoshka functions to make timeouts
-    setTimeout(emLinhaFicamNull,250);
-}
-
-function emLinhaFicamNull(){
-     //transformar todas as linas em nulls
+    let bombas=[];
+    let tempos=[];
+    let normais=[];
     let emLinha=verSeHaTresEmLinha(jogo);
+
     emLinha.forEach((conjunto) => {
         pontuacao+=(conjunto.length)-2;
         conjunto.forEach((pecalinha) => {
-            jogo[pecalinha[0]][pecalinha[1]]=null;
+            if (jogo[pecalinha[0]][pecalinha[1]].id=="bomba"){
+                bombas.push([pecalinha[0],pecalinha[1]])
+            }
+            else if(jogo[pecalinha[0]][pecalinha[1]].id=="tempo"){
+                tempos.push([pecalinha[0],pecalinha[1]])
+            }
+            else{
+                normais.push([pecalinha[0],pecalinha[1]])
+            }
         })
     })
+    document.getElementById(TABELA_HTML).classList.remove("clickable");
+    
+    actualizarSideboard()
+    //Matryoshka functions to make timeouts
+    setTimeout(()=>emLinhaFicamNull(bombas,tempos,normais),250);
+}
+
+function emLinhaFicamNull(listabombas,listatempo,listanormais){
+     //transformar todas as linas em nulls
+     let startRow = 0;
+     let endRow = 0;
+     let startCol = 0;
+     let endCol = 0;
+
+    listabombas.forEach((bomba)=>{
+        startRow = Math.max(0, bomba[0] - 1);
+        endRow = Math.min(jogo.length - 1, bomba[0] + 1);
+        startCol = Math.max(0, bomba[1] - 1);
+        endCol = Math.min(jogo[0].length - 1, bomba[1] + 1);
+
+        for (let i = startRow; i <= endRow; i++) {
+            for (let j = startCol; j <= endCol; j++) {
+              jogo[i][j]=null;
+            }
+        }
+        jogo[bomba[0]][bomba[1]]=null;
+    })
+    listatempo.forEach((ptempo)=>{
+        pontuacao+=2
+        jogo[ptempo[0]][ptempo[1]]=null;
+    })
+    listanormais.forEach((normails)=>{
+        jogo[normails[0]][normails[1]]=null;
+    })
+    
     torololo.play();
     arrayParaHtml(jogo);
     setTimeout(descerParaBaixoNull, 250);
@@ -487,4 +613,47 @@ function checkIfImpossivel(){
     else{
         return false
     }
+}
+
+function countdown(tempototal){
+    let tempoagora=tempototal;
+    let delay=0; //para os countdowns comecarem em tempos diferentes, o primeiro é 0
+    let counter=0; //serve para recomecar a contar quando todos os jogadores tiverem jogado sem que tenha que fazer um while true pk isso ia dar problemas
+    let listaLogedin=listaDeJogadores();
+
+    //TEMPORIZADOR
+    const novoCountdown = () =>{
+        tempoagora=tempototal;
+        document.getElementById(TIMERMULTI).innerHTML=tempoagora;
+        window.alert("Vez do " + listaLogedin[counter%listaLogedin.length].user)
+        const countdownJogador = setInterval(() => {
+            if (tempoagora <= 0) {
+                counter+=1;
+                clearInterval(countdownJogador);
+            }
+            tempoagora--;
+            document.getElementById(TIMERMULTI).innerHTML=tempoagora;
+        }, 1000);
+    }
+
+    //FAZER COM QUE O TEMPORIZADOR CORRA PARA SEMPRE
+    const comecarCountdowns = () =>{
+        novoCountdown();
+        delay=(tempototal +1) * 1000;
+        setTimeout(comecarCountdowns,delay);
+    };
+
+    //COMECAR TEMPORIZADOR
+    comecarCountdowns();
+}
+
+function listaDeJogadores(){
+    listaJogadores=[];
+
+    PLAYERDETAILS.forEach(regPlayer => {
+        if (regPlayer.logedin == "yes"){
+            listaJogadores.push(regPlayer)
+        }
+    })
+    return listaJogadores;
 }
