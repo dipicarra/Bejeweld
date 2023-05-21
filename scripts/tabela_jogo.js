@@ -443,7 +443,6 @@ function actualizarSideboard(){
     document.getElementById(PONTUACAO).innerHTML=pontuacao;
     document.getElementById(JOIAS_DISPLAY).innerHTML=joias_destruidas;
 
-    
     if (document.getElementById(TABELA_HTML).classList.contains("clickable")){
         if (pontuacao<=0){
             document.getElementById(BOTAO_DICA).disabled=true;
@@ -461,4 +460,7 @@ function actualizarSideboard(){
         document.getElementById(BOTAO_SHUFFLE).disabled=true;
     }
 
+    if (joias_destruidas>=JOIAS){
+        endgame();
+    }
 }
