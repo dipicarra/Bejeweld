@@ -119,17 +119,17 @@ function generarTitulos(){
 
 function definicoes(){
     if (esteJogo[0]=="singlenormal" || esteJogo[0]=="multinormal"){
-        let dificuldades = window.prompt("Escolhe dificuldade:\n-Fácil (8x8, 20 joias)\n-Intermédio (9x9, 25 joias)\n-Difícil (10x10, 30 joias)");
+        let dificuldades = window.prompt("Choose a difficulty:\n-Easy (8x8, 20 jewels)\n-Normal (9x9, 25 jewels)\n-Hard (10x10, 30 jewels)");
         if (dificuldades == null){
-            dificuldades = "facil"
+            dificuldades = "easy"
         }
         dificuldades=dificuldades.toString().toLowerCase().normalize();
-        if (dificuldades=="intermedio"){
+        if (dificuldades=="normal"){
             ALTURA_TABELA=9;
             LARGURA_TABELA=9;
             JOIAS=25;
         }
-        else if (dificuldades=="dificil"){
+        else if (dificuldades=="hard"){
             ALTURA_TABELA=10;
             LARGURA_TABELA=10;
             JOIAS=30;
@@ -137,7 +137,7 @@ function definicoes(){
     }
     else if (esteJogo[0]=="singleinfinito" || esteJogo[0]=="multiInfinito"){
         JOIAS=Infinity;
-        let dificuldades = window.prompt("Escolhe tamanho:\n-Tall (8x8)\n-Grande (9x9)\n-Venti (10x10)");
+        let dificuldades = window.prompt("Choose a size:\n-Tall (8x8)\n-Grande (9x9)\n-Venti (10x10)");
         if (dificuldades == null){
             dificuldades = "tall"
         }
@@ -641,7 +641,7 @@ function countdown(tempototal){
     const novoCountdown = () =>{
         tempoagora=tempototal;
         document.getElementById(TIMERMULTI).innerHTML=tempoagora;
-        window.alert("Vez do " + listaLogedin[counter%listaLogedin.length].user)
+        window.alert("Turn: " + listaLogedin[counter%listaLogedin.length].user)
         const countdownJogador = setInterval(() => {
             if (tempoagora <= 0) {
                 counter+=1;
