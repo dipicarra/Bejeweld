@@ -25,18 +25,25 @@ const JOIAS_TOTAIS = "joiastotais";
 const TITULO_JOGO = "titlejogo";
 const SUBTITULO_JOGO = "subtitulojogo";
 const TABELA_HTML = "tabelajogo";
+const IMPOSSIVEL = "impossivel";
 
 //AUDIO
 const blop3 = new Audio("media/Blop 3.mp3");
 const torololo = new Audio("media/Torololo.mp3");
 
 //MODO DE JOGO
-let esteJogo = JSON.parse(localStorage.getItem("jogocurrente"));
+let JOGOCURRENTE="jogocurrente"
+let esteJogo = JSON.parse(localStorage.getItem(JOGOCURRENTE));
 
 //BOTOES
 const BOTAO_DICA= "btndica";
 const BOTAO_SHUFFLE= "btnshuffle";
 const BOTAO_END="btnend";
+
+//PRECOS BUTOES
+
+const PRECO_SHUFFLE=2;
+const PRECO_DICA=1;
 
 window.addEventListener("load", onload);
 
@@ -369,7 +376,9 @@ function nullFicaNovaPeca(){
     }
     else {
         document.getElementById(TABELA_HTML).classList.add("clickable");
-        actualizarSideboard()
+        actualizarSideboard();
+        checkIfImpossivel();
+        checkIfEndgame();
     };
 };
 
@@ -432,8 +441,8 @@ function shuffle(){
 
 function endgame(){
     window.alert("Jogo Terminou");
-    let tempo=document.getElementById("timer");
-    let novoEsteJogo=[esteJogo[0],pontuacao,tempo,true];
+    let tempo=document.getElementById("timer").innerHTML;
+    let novoEsteJogo=[esteJogo[0],pontuacao,tempo.toString(),true];
     localStorage.setItem(JOGOCURRENTE,JSON.stringify(novoEsteJogo));
     window.location.href="stats.html";
 }
@@ -448,10 +457,10 @@ function actualizarSideboard(){
             document.getElementById(BOTAO_DICA).disabled=true;
             document.getElementById(BOTAO_SHUFFLE).disabled=true;
         }
-        if (pontuacao>0){
+        if (pontuacao>=PRECO_DICA){
             document.getElementById(BOTAO_DICA).disabled=false;
         }
-        if (pontuacao>1){
+        if (pontuacao>=PRECO_SHUFFLE){
             document.getElementById(BOTAO_SHUFFLE).disabled=false;
         }
     }
@@ -459,8 +468,23 @@ function actualizarSideboard(){
         document.getElementById(BOTAO_DICA).disabled=true;
         document.getElementById(BOTAO_SHUFFLE).disabled=true;
     }
+}
 
+function checkIfEndgame(){
     if (joias_destruidas>=JOIAS){
         endgame();
+    }
+    else if(checkIfImpossivel() && pontuacao>=PRECO_SHUFFLE){
+        endgame();
+    }
+}
+
+function checkIfImpossivel(){
+    if (jogadasPossiveis().lenght==0){
+        document.getElementById("IMPOSSIVEL").classList.remove("desaparecer");
+        return true
+    }
+    else{
+        return false
     }
 }

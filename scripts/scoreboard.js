@@ -3,31 +3,36 @@
 //Número:  Nome: José Lopes PL:26-->
 //Número:  Nome: Vladana Giebler PL:26-->
 
-function leader(nome, highscore){
+//DADOS
+let JOGOCURRENTE="jogocurrente"
+
+//BASE
+
+function leader(nome, highscore, time){
     this.nome = nome;
     this.highscore = highscore;
+    this.time=time;
 }
 
 const leaders = [
-            // nome      highscore  time
-    new leader ("Vladana", 9999, "00:01"),
-    new leader ("Diogo", 9999,"00:01"),
-    new leader ("José", 9999, "00:01"),
+                // nome  highscore  time
+    new leader ("Vladana", 9998, "00:01"),
+    new leader ("Diogo", 9998,"00:01"),
+    new leader ("José", 9998, "00:01"),
+    new leader ("Professora Vânia Mendonça", 9999, "00,00")
     ];
-
-
 
 
 window.addEventListener("load", principal);
 
 function principal() {
-    desenharow()
+    //novoscore();
+    desenharow();
 }
 
 
 function desenharow(){
-    let theExport = ""
-    //leaders.sort((aleader, bleader) => aleader.highscore - bleader.highscore);
-    leaders.forEach((leader) => theExport += "<tr><td>" + leader.nome + "</td><td>" + leader.highscore + "</td></tr>");
+    let theExport = "";
+    leaders.forEach((leader) => theExport += "<tr><td>" + leader.nome + "</td><td>" + leader.highscore + "</td><td>" + leader.time + "</td></tr>");
     document.getElementById("scoreboard").innerHTML = theExport;
 }
