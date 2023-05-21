@@ -73,10 +73,7 @@ window.addEventListener("load", onload);
 
 function onload() {
     PLAYERDETAILS = JSON.parse(localStorage.getItem(PLAYERLIST)) || [];
-    SCORESINGLENORMAL= JSON.parse(localStorage.getItem(STORAGESINGLENORMAL)) || SCORESINGLENORMAL;
-    SCOREMULTINORMAL= JSON.parse(localStorage.getItem(STORAGEMULTINORMAL)) || SCOREMULTINORMAL;
-    SCORESINGLEINFINITO= JSON.parse(localStorage.getItem(STORAGESINGLEINFINITO)) || SCORESINGLEINFINITO;
-    SCOREMULTIINFINITO= JSON.parse(localStorage.getItem(STORAGEMULTIINFINITO)) || SCOREMULTIINFINITO;
+    atualizarScores();
     functionalidades();
     botoes();
     novoScore();
@@ -207,6 +204,7 @@ function multiinfinito(){
 };
 
 function organizarScore(lista){
+    console.log("sorted")
     lista.sort(function(a, b) {
         if (b.highscore !== a.highscore) {
           return b.highscore - a.highscore;
@@ -232,4 +230,15 @@ function organizarScore(lista){
         return a.nome.localeCompare(b.nome);
       });
     return lista
+}
+
+function atualizarScores(){
+    SCORESINGLENORMAL= JSON.parse(localStorage.getItem(STORAGESINGLENORMAL)) || SCORESINGLENORMAL;
+    SCOREMULTINORMAL= JSON.parse(localStorage.getItem(STORAGEMULTINORMAL)) || SCOREMULTINORMAL;
+    SCORESINGLEINFINITO= JSON.parse(localStorage.getItem(STORAGESINGLEINFINITO)) || SCORESINGLEINFINITO;
+    SCOREMULTIINFINITO= JSON.parse(localStorage.getItem(STORAGEMULTIINFINITO)) || SCOREMULTIINFINITO;
+    SCORESINGLENORMAL=organizarScore(SCORESINGLENORMAL);
+    SCOREMULTINORMAL=organizarScore(SCOREMULTINORMAL);
+    SCORESINGLEINFINITO=organizarScore(SCORESINGLEINFINITO);
+    SCOREMULTIINFINITO=organizarScore(SCOREMULTIINFINITO);
 }
