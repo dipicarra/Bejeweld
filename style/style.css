@@ -363,3 +363,58 @@ td{
     border: 1px solid white;
     padding-top:10px
 }
+
+#mododejogo{
+    font-family:'Times New Roman', Times, serif;
+    color:antiquewhite;
+    text-align: center;
+}
+
+#botoesstats{
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+#btnsinglenormal{
+    background-color:#887bb0dc;
+    text-align: center;
+    width: 200px;
+    height: 50px;
+    color: #69eae6;
+    font-size: larger;
+    font-weight: bolder;
+    cursor:pointer;
+}
+
+#btnmultinormal{
+    background-color:#887bb0dc;
+    text-align: center;
+    width: 200px;
+    height: 50px;
+    color: #69eae6;
+    font-size: larger;
+    font-weight: bolder;
+    cursor:pointer;
+}
+
+#btnsingleinfinito{
+    background-color:#887bb0dc;
+    text-align: center;
+    width: 200px;
+    height: 50px;
+    color: #69eae6;
+    font-size: larger;
+    font-weight: bolder;
+    cursor:pointer;
+}
+
+#btnmultiinfinito{
+    background-color:#887bb0dc;
+    text-align: center;
+    width: 200px;
+    height: 50px;
+    color: #69eae6;
+    font-size: larger;
+    font-weight: bolder;
+    cursor:pointer;
+}
