@@ -14,6 +14,7 @@ function leader(nome, highscore, time){
     this.time=time;
 }
 
+// array de players
 const leaders = [
                 // nome  highscore  time
     new leader ("Vladana", 9998, "00:01"),
@@ -26,11 +27,10 @@ const leaders = [
 window.addEventListener("load", principal);
 
 function principal() {
-    //novoscore();
     desenharow();
 }
 
-
+// função desenha row tem uma variável principal 'theExport' que recebe do ciclo for uma linha por cada "leader"
 function desenharow(){
     let theExport = "";
     leaders.forEach((leader) => theExport += "<tr><td>" + leader.nome + "</td><td>" + leader.highscore + "</td><td>" + leader.time + "</td></tr>");
