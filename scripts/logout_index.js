@@ -56,10 +56,10 @@ function butoes() {
             let button = document.getElementById(nomeJogador);
 
             button.addEventListener("click", () => {
-                let resultado = confirm("Stats do jogador " + nomeJogador+":\nNúmero de jogos: " + regPlayer.stats['games']+
-                                        "\nTempo total jogado: "+ regPlayer.stats['time']+
-                                        "\nPontuação máxima: "+ regPlayer.stats['maxscore']+
-                                        "\n\nPretende dar Log out?");
+                let resultado = confirm("Stats of player " + nomeJogador+":\nNumeber of games: " + regPlayer.stats['games']+
+                                        "\nTotal time played: "+ regPlayer.stats['time']+
+                                        "\nMax Score: "+ regPlayer.stats['maxscore']+
+                                        "\n\nSure you want to log out?");
                 if (resultado){
                     regPlayer.logedin="no";
                     localStorage.setItem(PLAYERLIST,JSON.stringify(PLAYERDETAILS));
