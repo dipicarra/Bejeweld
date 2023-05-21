@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="style/style.css">
     <link rel="stylesheet" href="style/position.css">
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script defer src="scripts/tabela_jogo.js"></script>
     <script defer src="scripts/timer.js"></script>
     <title id="titlejogo"></title>
@@ -19,17 +20,19 @@
       <div id="acimatabela">
         <h2 id="subtitulojogo" class="subtitulo"></h2>
         <h2 id="timer" class="timer">00:00</h2>
-        <h2 id="impossivel" class="desaparecer"">IMPOSSIVEL</h2>
+        <h2 id="impossivel" class="desaparecer"">IMPOSSIBLE</h2>
       </div>
-      <div id="sidebar">
-        <p class="sidebartxt">Score: <span id="pontuacao">0</span></p>
-        <p class="sidebartxt">Jewels: <span id="joias">0</span>/<span id="joiastotais"></span></p>
-        <p id="timermultitxt" class="sidebartxt desaparecer">Next Player: <span id="timermulti">00</span> seg</p>
-        <button id="btndica" class="sidebarbutton" disabled>TIP (-1 point)</button>
-        <button id="btnshuffle" class="sidebarbutton" disabled>SHUFFLE (-2 points)</button>
-        <button id="btnend" class="sidebarbutton">END</button>
+      <div id="jogoesidebar">
+        <div id="sidebar">
+          <p class="sidebartxt">Score: <span id="pontuacao">0</span></p>
+          <p class="sidebartxt">Jewels: <span id="joias">0</span>/<span id="joiastotais"></span></p>
+          <p id="timermultitxt" class="sidebartxt desaparecer">Next Player: <span id="timermulti">00</span> seg</p>
+          <button id="btndica" class="sidebarbutton" disabled>Hint (-1 ponto)</button>
+          <button id="btnshuffle" class="sidebarbutton" disabled>SHUFFLE (-2 ponto)</button>
+          <button id="btnend" class="sidebarbutton">END</button>
+        </div>
+        <table id="tabelajogo" class="clickable"></table>
       </div>
-      <table id="tabelajogo" class="clickable"></table>
     </div>
     <div class="end">
     </div>
