@@ -81,16 +81,16 @@ function addplayerdetails (){
     if (existe==false){
         PLAYERDETAILS.push(player);
         salvarPlayerStorage();
-        window.alert("Registo feito, vai dar login se quiseres uwu");
+        window.alert("Registerd.");
     }
     else if (existe=="user"){
-        window.alert("Já existe alguem com esse username");
+        window.alert("That username is unavailable.");
     }
     else if (existe=="email"){
-        window.alert("Já existe alguem com esse email");
+        window.alert("That email is already in use.");
     }
     else if (existe=="useremail"){
-        window.alert("Já existe alguem com esse email e com esse username");
+        window.alert("That email and username are unavailable.");
     }
 }
 

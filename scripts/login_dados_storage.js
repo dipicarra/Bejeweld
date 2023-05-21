@@ -69,7 +69,7 @@ function testarlogin (inputUser, inputPass) {
         }
     }
     if (existe == false) {
-        window.alert("This account does not exist, please register u dumdum.");
+        window.alert("This account does not exist, please register");
     } 
     else if (existe == "logged in") {
         window.alert(inputUser + " is already logged in.");
@@ -81,7 +81,7 @@ function testarlogin (inputUser, inputPass) {
         else{
             PLAYERDETAILS[iCerto].logedin="yes";
             localStorage.setItem(PLAYERLIST,JSON.stringify(PLAYERDETAILS));
-            window.alert("You just logged in congrats i guess");
+            window.alert("You just logged in.");
         }
     }
 }
