@@ -64,11 +64,12 @@ function peca (id,imagem){
 
 function onload() {
     definicoes();
-    generarVisuais();
+    generarTitulos();
     botoes();
+    jogadasPossiveis();
 }
 
-function generarVisuais(){
+function generarTitulos(){
     if (esteJogo[0] == "singlenormal"){
         document.getElementById(TITULO_JOGO).innerHTML="Singleplayer";
         document.getElementById(SUBTITULO_JOGO).innerHTML="Singleplayer";
@@ -310,6 +311,7 @@ function eliminarPecasAMais(tabela){
 
 function capturarpecas(){
     document.getElementById(TABELA_HTML).classList.remove("clickable");
+    actualizarSideboard()
     //Matryoshka functions to make timeouts
     setTimeout(emLinhaFicamNull,250);
 }
@@ -345,7 +347,6 @@ function descerParaBaixoNull(){
             }
         }
     }
-    document.getElementById(JOIAS_DISPLAY).innerHTML=joias_destruidas;
     nullFicaNovaPeca();
 }
 
@@ -360,8 +361,7 @@ function nullFicaNovaPeca(){
         })
     })
     emLinha = verSeHaTresEmLinha(jogo);
-
-    document.getElementById(PONTUACAO).innerHTML=pontuacao;
+    actualizarSideboard()
     arrayParaHtml(jogo);
     
     if (emLinha.length>0){
@@ -369,6 +369,7 @@ function nullFicaNovaPeca(){
     }
     else {
         document.getElementById(TABELA_HTML).classList.add("clickable");
+        actualizarSideboard()
     };
 };
 
@@ -378,11 +379,86 @@ function botoes(){
     document.getElementById(BOTAO_END).addEventListener("click",endgame);
 };
 
-function dica(){
-    jogo.forEach((linha) => {
-        linha.forEach((tpeca)=> {
-            
+function adjacenteTabela(pecaindex){
+    let adjacentes=[];
+    jogo.forEach((linha,linhaIndex) => {
+        linha.forEach((tpeca,tpecaIndex)=> {
+            let pecanova=[linhaIndex,tpecaIndex]
+            if (verSePecaAdjacente(pecaindex,pecanova)==true){
+                adjacentes.push(pecanova)
+            }
         })
     })
+    return adjacentes
+};
+
+function jogadasPossiveis(){
+    let possiveis=[];
+    jogo.forEach((linha,linhaIndex) => {
+        linha.forEach((tpeca,tpecaIndex)=> {
+            let estaPeca=[linhaIndex,tpecaIndex];
+            let juntos = adjacenteTabela(estaPeca);
+            juntos.forEach((elemento)=>{
+                let temppeca=jogo[estaPeca[0]][estaPeca[1]];
+                jogo[estaPeca[0]][estaPeca[1]]=jogo[elemento[0]][elemento[1]];
+                jogo[elemento[0]][elemento[1]]=temppeca;
+                if (verSeHaTresEmLinha(jogo).length>0){
+                    possiveis.push(estaPeca)
+                }
+                temppeca=jogo[estaPeca[0]][estaPeca[1]];
+                jogo[estaPeca[0]][estaPeca[1]]=jogo[elemento[0]][elemento[1]];
+                jogo[elemento[0]][elemento[1]]=temppeca;
+            })
+        })
+    })
+    return possiveis
+};
+
+function dica(){
+    pontuacao-=1;
+    jogadas=jogadasPossiveis();
+    actualizarSideboard();
+    let pecaDica=jogadas[Math.floor(Math.random()*jogadas.length)];
+    document.getElementById("L"+pecaDica.join("")).classList.add("dica");
+    setInterval(function(){document.getElementById("L"+pecaDica.join("")).classList.remove("dica");},3000)
+}
+
+function shuffle(){
+    pontuacao-=2;
+    actualizarSideboard();
+    jogo=eliminarPecasAMais(desenharTabela());
+    arrayParaHtml(jogo);
+}
+
+function endgame(){
+    window.alert("Jogo Terminou");
+    let tempo=document.getElementById("timer");
+    let novoEsteJogo=[esteJogo[0],pontuacao,tempo,true];
+    localStorage.setItem(JOGOCURRENTE,JSON.stringify(novoEsteJogo));
+    window.location.href="stats.html";
+}
+
+function actualizarSideboard(){
+
+    document.getElementById(PONTUACAO).innerHTML=pontuacao;
+    document.getElementById(JOIAS_DISPLAY).innerHTML=joias_destruidas;
+
+    
+    if (document.getElementById(TABELA_HTML).classList.contains("clickable")){
+        if (pontuacao<=0){
+            document.getElementById(BOTAO_DICA).disabled=true;
+            document.getElementById(BOTAO_SHUFFLE).disabled=true;
+        }
+        if (pontuacao>0){
+            document.getElementById(BOTAO_DICA).disabled=false;
+        }
+        if (pontuacao>1){
+            document.getElementById(BOTAO_SHUFFLE).disabled=false;
+        }
+    }
+    else{
+        document.getElementById(BOTAO_DICA).disabled=true;
+        document.getElementById(BOTAO_SHUFFLE).disabled=true;
+    }
 
 }

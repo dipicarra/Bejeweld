@@ -265,6 +265,9 @@ td{
 .clicked{
     background-color: #D60270;
 }
+.dica{
+    background-color: orange;
+}
 
 .endButton{
     background-color:#887bb0ec;
