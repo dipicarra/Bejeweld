@@ -60,6 +60,17 @@ const PRECO_DICA=1;
 
 window.addEventListener("load", onload);
 
+function Player (user, password, genero, idade, email, logedin, stats){
+
+    this.user=user;
+    this.password=password;
+    this.genero=genero;
+    this.idade=idade;
+    this.email=email;
+    this.logedin=logedin;
+    this.stats=stats;
+}
+
 //PECAS DISPONIVEIS
 const cadaPeca = [
     new peca ("azul","media/por/blueGem.png"),
@@ -583,11 +594,23 @@ function shuffle(){
 
 function endgame(){
     window.alert("Jogo Terminou");
+    //atualizarJogadores()
     let tempo=document.getElementById("timer").innerHTML;
     let novoEsteJogo=[esteJogo[0],pontuacao,tempo.toString(),true];
     localStorage.setItem(JOGOCURRENTE,JSON.stringify(novoEsteJogo));
     window.location.href="stats.html";
 }
+
+/**function atualizarJogadores(){
+    PLAYERDETAILS.forEach(regPlayer => {
+        if (regPlayer.logedin == "yes"){
+            regPlayer.stats['games']+=1
+            regPlayer.stats['time'] 
+            regPlayer.stats['maxscore']
+        }
+    })
+    localStorage.setItem(PLAYERLIST,JSON.stringify(PLAYERDETAILS));
+}**/
 
 function actualizarSideboard(){
 
