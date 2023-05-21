@@ -3,6 +3,14 @@
 // Número: 51758 Nome: José Lopes PL:26
 // Número: 61279 Nome: Vladana Giebler PL:26
 
+/**FUNCIONALIDADES DO JOGO: 
+ * -DICAS
+ * -SHUFFLE
+ * -ACABAR O JOGO AUTOMATICAMENTE DEPOIS DE CHEGAR AS JOIAS NECESSARIAS OU SE É IMPOSSIVEL+N TENS PONTOS PARA SHUFFLE
+ * -MULTIPLAYER
+ * -MODO INFINITO PARA SINGLE E MULTIPLAYER
+ * */
+
 // DEFINICOES DO JOGO BASE
 let ALTURA_TABELA=8;
 let LARGURA_TABELA=8;
@@ -151,6 +159,7 @@ function inicializarTabela(){
     arrayParaHtml(jogo);
 }
 
+//Mete a tabela no html
 function arrayParaHtml(game){
     let tabelaParaHtml = "";
     game.forEach((linha, numeroLinha) => {
@@ -184,6 +193,7 @@ function arrayParaHtml(game){
     });    
 }
 
+//mover peca, verificando se pode
 function moverPeca(imageId) {
     if (peca_clicada==null){
         peca_clicada = imageId;
@@ -223,6 +233,7 @@ function moverPeca(imageId) {
     }
 }
 
+//ve se duas pecas estao lado a lado
 function verSePecaAdjacente(pecaAntiga,pecaNova){
     let resultado=false
     if (pecaAntiga[0] == pecaNova[0] &&
@@ -236,7 +247,7 @@ function verSePecaAdjacente(pecaAntiga,pecaNova){
     return resultado;
 }
 
-
+//pega em linhas e faz a tabela do jogo
 function desenharTabela(){
     let tabela=[];
     for (let i = 0; i < ALTURA_TABELA; i++){
@@ -246,7 +257,7 @@ function desenharTabela(){
     return tabela;
 }
 
-
+//pega em pecas ao calhas e faz cada linha do jogo
 function desenharRow(){
     let novaLinha=[];
     for (let i = 0; i < LARGURA_TABELA; i++){
@@ -255,6 +266,7 @@ function desenharRow(){
     return novaLinha;
 }
 
+//gera a peca aleatoriamente, respeitando percentages para pecas especias
 function generarPeca(){
     let tipopeca=Math.floor(Math.random()*100)
     let pecagerada=null
@@ -403,6 +415,10 @@ function eliminarPecasAMais(tabela){
     return tabela
 }
 
+/**esta serve para capturar as pecas, nao para eliminar, isto ganha pontos e ativa especias
+ * sendo que é 1 de 4 funcoes para fazer tudo porque, para alem de dividir, adicionei timeouts para 
+ * ficar mais bonito no final**/
+
 function capturarpecas(){
     let bombas=[];
     let tempos=[];
@@ -431,7 +447,7 @@ function capturarpecas(){
 }
 
 function emLinhaFicamNull(listabombas,listatempo,listanormais){
-     //transformar todas as linas em nulls
+     //transformar todas as linas em nulls, respeitando especias, incluindo a bomba
      let startRow = 0;
      let endRow = 0;
      let startCol = 0;
