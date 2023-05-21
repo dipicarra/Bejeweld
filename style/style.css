@@ -326,7 +326,33 @@ td{
     display: block;
     margin-bottom: 5px;
 }
-    
-#sidebar{
-    width: 300px;
+
+.sidebarbutton:disabled{
+    background-color:#ad1313dc;
+    text-align: center;
+    color: #69eae6;
+    font-size: large;
+    font-weight: bolder;
+    cursor:pointer;
+    width: 200px;
+    height: 40px;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.impossivel{
+    font-size:larger;
+    text-align: center;
+    color: #ad1313dc;
+    -webkit-text-stroke: 0.1px black;
+}
+
+.textorules{
+    background-color: #00000082;
+    padding:40px;
+    border: 1px solid white;
+    font-size:larger;
+    -webkit-text-stroke: 0.3px black;
+    color:white;
+    padding-top:10px
 }
