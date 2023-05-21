@@ -594,23 +594,32 @@ function shuffle(){
 
 function endgame(){
     window.alert("Jogo Terminou");
-    //atualizarJogadores()
+    atualizarJogadores()
     let tempo=document.getElementById("timer").innerHTML;
     let novoEsteJogo=[esteJogo[0],pontuacao,tempo.toString(),true];
     localStorage.setItem(JOGOCURRENTE,JSON.stringify(novoEsteJogo));
     window.location.href="stats.html";
 }
 
-/**function atualizarJogadores(){
+function atualizarJogadores(){
     PLAYERDETAILS.forEach(regPlayer => {
         if (regPlayer.logedin == "yes"){
-            regPlayer.stats['games']+=1
-            regPlayer.stats['time'] 
-            regPlayer.stats['maxscore']
+            regPlayer.stats['games']+=1;
+            let tempo=document.getElementById("timer").innerHTML;
+            let tempoantigo=(regPlayer.stats['time'])
+            const [minutes, seconds] = tempo.split(':').map(Number);
+            temponovo=minutes*60+seconds
+            if (temponovo>tempoantigo){
+                regPlayer.stats['time']=temponovo;
+            }
+            if (regPlayer.stats['maxscore']<pontuacao){
+                regPlayer.stats['maxscore']=pontuacao;
+            }
+            
         }
     })
     localStorage.setItem(PLAYERLIST,JSON.stringify(PLAYERDETAILS));
-}**/
+}
 
 function actualizarSideboard(){
 
