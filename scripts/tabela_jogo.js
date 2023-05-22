@@ -609,9 +609,7 @@ function atualizarJogadores(){
             let tempoantigo=(regPlayer.stats['time'])
             const [minutes, seconds] = tempo.split(':').map(Number);
             temponovo=minutes*60+seconds
-            if (temponovo>tempoantigo){
-                regPlayer.stats['time']=temponovo;
-            }
+            regPlayer.stats['time']+=temponovo;
             if (regPlayer.stats['maxscore']<pontuacao){
                 regPlayer.stats['maxscore']=pontuacao;
             }
